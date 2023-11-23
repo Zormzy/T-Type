@@ -7,6 +7,8 @@ TagManager:
   - PlayerProjectile
   - Enemy
   - EnemyProjectile
+  - EnemyN1
+  - EnemyN2
   layers:
   - Default
   - TransparentFX

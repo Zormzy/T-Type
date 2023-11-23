@@ -45,8 +45,8 @@ public class EnemiesStacks : MonoBehaviour
         _enemyTransformParent = this.transform;
         _enemyNormal1Stack = new Stack<GameObject>();
         _enemyNormal2Stack = new Stack<GameObject>();
-        _enemyNormal1Count = 10;
-        _enemyNormal2Count = 10;
+        _enemyNormal1Count = 20;
+        _enemyNormal2Count = 20;
         _enemyNormal1Name = "Enemy normal 1 n°";
         _enemyNormal2Name = "Enemy normal 2 n°";
     }

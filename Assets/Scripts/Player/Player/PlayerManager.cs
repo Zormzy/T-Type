@@ -7,7 +7,8 @@ public class PlayerManager : MonoBehaviour
     private PlayerController _playerController;
 
     [Header("Variables")]
-    private string _enemyCollisionTag;
+    private string _enemyN1CollisionTag;
+    private string _enemyN2CollisionTag;
     private string _enemyProjectileCollisionTag;
     private string _collisionTag;
     private bool _playerIsAlive;
@@ -20,7 +21,8 @@ public class PlayerManager : MonoBehaviour
     private void PlayerManagerInitialization()
     {
         _playerController = GetComponent<PlayerController>();
-        _enemyCollisionTag = "Enemy";
+        _enemyN1CollisionTag = "EnemyN1";
+        _enemyN2CollisionTag = "EnemyN2";
         _enemyProjectileCollisionTag = "EnemyProjectile";
         _playerIsAlive = true;
     }
@@ -29,7 +31,7 @@ public class PlayerManager : MonoBehaviour
     {
         _collisionTag = collision.gameObject.tag;
 
-        if (_collisionTag == _enemyCollisionTag || _collisionTag == _enemyProjectileCollisionTag)
+        if (_collisionTag == _enemyN1CollisionTag || _collisionTag == _enemyN2CollisionTag || _collisionTag == _enemyProjectileCollisionTag)
             _playerController.EnemyCollision();
     }
 }

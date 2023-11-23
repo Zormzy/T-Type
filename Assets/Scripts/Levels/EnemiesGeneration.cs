@@ -67,7 +67,6 @@ public class EnemiesGeneration : MonoBehaviour
     private void EnemiesGenerationInitialization()
     {
         _enemyStacks = GameObject.Find("Enemies").GetComponent<EnemiesStacks>();
-        //_enemySpawnPointRand.Set(_enemySpawnPoint.position.x + Random.Range(-5f, 5f), _enemySpawnPoint.position.y, _enemySpawnPoint.position.z);
         _enemySpawnTimer = 5f;
         _enemySpawnTimerCounter = 2f;
         _enemyAsSpawn = false;

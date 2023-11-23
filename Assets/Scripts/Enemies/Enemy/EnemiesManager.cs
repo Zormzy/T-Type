@@ -5,6 +5,7 @@ public class EnemiesManager : MonoBehaviour
     [Header("Components")]
     [SerializeField] private Transform _enemyTransform;
     [SerializeField] private Rigidbody2D _enemyRigidBody;
+    [SerializeField] private Enemy1Controller _enemy1Controller;
     [SerializeField] private Enemy2Controller _enemy2Controller;
     [SerializeField] private AnimationCurve _enemyAnimationCurve;
     private Transform _enemySpawnPosition;
@@ -15,6 +16,7 @@ public class EnemiesManager : MonoBehaviour
     private bool _enemyIsAlive;
     private int _hitPoints;
     private int _maxHitPoints;
+    private int _enemyControllerNumber;
 
     [Header("Movement")]
     public Vector2 _enemyMovementDirection;
@@ -34,7 +36,7 @@ public class EnemiesManager : MonoBehaviour
     private void EnemyMovement()
     {
         _enemyMovementDirection.Set(_enemySpawnPosition.position.x + _enemyAnimationCurve.Evaluate(Time.time - _movementTimer), _enemyTransform.position.y - _movementSpeed * Time.deltaTime);
-       _enemyTransform.position = _enemyMovementDirection;
+        _enemyTransform.position = _enemyMovementDirection;
     }
 
     public void OnHit(int damagePoints)
@@ -55,12 +57,22 @@ public class EnemiesManager : MonoBehaviour
 
     private void EnemyManagerInitialization()
     {
+        if (TryGetComponent<Enemy1Controller>(out Enemy1Controller _enemy1ControllerOut))
+        {
+            _enemy1Controller = _enemy1ControllerOut;
+            _enemyControllerNumber = 1;
+        }
+        else if (TryGetComponent<Enemy2Controller>(out Enemy2Controller _enemy2ControllerOut))
+        {
+            _enemy2Controller = _enemy2ControllerOut;
+            _enemyControllerNumber = 2;
+        }
+
         _enemySpawnPosition = GameObject.Find("EnemiesSpawnPoint").transform;
-        _enemy2Controller = GetComponent<Enemy2Controller>();
         _playerProjectileCollisionTag = "PlayerProjectile";
         _enemyIsAlive = true;
         _movementTimer = 0f;
-        _movementSpeed = 0.5f;
+        _movementSpeed = 0.2f;
         _maxHitPoints = 10;
         _hitPoints = _maxHitPoints;
         _enemyMovementDirection = Vector2.down;
@@ -75,7 +87,17 @@ public class EnemiesManager : MonoBehaviour
             OnHit(collision.gameObject.GetComponent<PlayerProjectileManager>()._damage);
             if (_hitPoints <= 0)
             {
-                _enemy2Controller.OnOutOfBoundAndPlayerCollision();
+                switch (_enemyControllerNumber)
+                {
+                    case 1:
+                        _enemy1Controller.OnOutOfBoundAndPlayerCollision();
+                        break;
+                    case 2:
+                        _enemy2Controller.OnOutOfBoundAndPlayerCollision();
+                        break;
+                    default:
+                        break;
+                }
                 _enemyIsAlive = false;
             }
         }
