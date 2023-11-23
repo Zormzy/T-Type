@@ -33,7 +33,7 @@ public class EnemiesGeneration : MonoBehaviour
         if (_enemySpawnTimerCounter >= _enemySpawnTimer)
         {
             _enemySpawnPointRand.Set(_enemySpawnPoint.position.x + Random.Range(-5f, 5f), _enemySpawnPoint.position.y, _enemySpawnPoint.position.z);
-            _enemyToSpawn = Random.Range(0, 1);
+            _enemyToSpawn = Random.Range(0, 2);
             EnemySpawn();
             _enemySpawnTimer = Random.Range(4.00f, 6.00f);
             _enemySpawnTimerCounter = 0f;
