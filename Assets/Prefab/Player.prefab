@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 7679976330079923363}
   - component: {fileID: 3896654221194167529}
   - component: {fileID: 2202011373931277501}
+  - component: {fileID: 4579029322345281563}
   - component: {fileID: 4575232481483202614}
   - component: {fileID: 7936927912938172712}
   m_Layer: 6
@@ -226,6 +227,19 @@ MonoBehaviour:
   _playerRigidBody: {fileID: 1317510606882069250}
   _playerDirectionVector2: {x: 0, y: 0}
   _playerSpeed: 0
+--- !u!114 &4579029322345281563
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2601974526950854829}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e08f540c615a2c34390a986cf0726c6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerRigidbody: {fileID: 1317510606882069250}
 --- !u!114 &4575232481483202614
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -254,5 +268,4 @@ MonoBehaviour:
   _playerProjectilePrefab: {fileID: 4726635410914230651, guid: cbc86e91a0db6024f9c036a1f7f076c4, type: 3}
   _fireTimer: 0
   _fireTimerCounter: 0
-  _playerProjectileList: []
   _playerProjectileCount: 0

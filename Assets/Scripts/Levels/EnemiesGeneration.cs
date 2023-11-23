@@ -9,6 +9,7 @@ public class EnemiesGeneration : MonoBehaviour
 
     [Header("Enemies infos")]
     [SerializeField] private Transform _enemySpawnPoint;
+    private Vector3 _enemySpawnPointRand;
     public List<GameObject> Enemies;
     public int _enemiesCount;
 
@@ -31,7 +32,9 @@ public class EnemiesGeneration : MonoBehaviour
     {
         if (_enemySpawnTimerCounter >= _enemySpawnTimer)
         {
+            _enemySpawnPointRand.Set(_enemySpawnPoint.position.x + Random.Range(-5f, 5f), _enemySpawnPoint.position.y, _enemySpawnPoint.position.z);
             EnenmySpawn();
+            _enemySpawnTimer = Random.Range(4.00f, 6.00f);
             _enemySpawnTimerCounter = 0f;
             _enemyAsSpawn = false;
         }
@@ -46,7 +49,7 @@ public class EnemiesGeneration : MonoBehaviour
             if (!enemy.activeSelf && !_enemyAsSpawn)
             {
                 enemy.SetActive(true);
-                enemy.transform.position = _enemySpawnPoint.position;
+                enemy.transform.position = _enemySpawnPointRand;
                 _enemyAsSpawn = true;
             }
         }
@@ -59,7 +62,7 @@ public class EnemiesGeneration : MonoBehaviour
             GameObject _enemy = Instantiate(_enemyPrefab);
             _enemy.SetActive(false);
             _enemy.transform.parent = _enemyTransformParent;
-            _enemy.transform.position = _enemySpawnPoint.position;
+            _enemy.transform.position = _enemySpawnPointRand;
             _enemy.name = "Enemy n°" + i.ToString();
             Enemies.Add(_enemy);
         }
@@ -69,9 +72,10 @@ public class EnemiesGeneration : MonoBehaviour
     {
         Enemies = new List<GameObject>();
         _enemiesCount = 10;
+        _enemySpawnPointRand.Set(_enemySpawnPoint.position.x + Random.Range(-5f, 5f), _enemySpawnPoint.position.y, _enemySpawnPoint.position.z);
         EnemiesStartSpawn();
         _enemySpawnTimer = 5f;
-        _enemySpawnTimerCounter = 0f;
+        _enemySpawnTimerCounter = 2f;
         _enemyAsSpawn = false;
     }
 }

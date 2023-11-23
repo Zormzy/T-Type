@@ -31,6 +31,6 @@ public class PlayerProjectileController : MonoBehaviour
     private void PlayerProjectileControllerInitialization()
     {
         _playerProjectileDirectionVector2 = Vector2.up;
-        _playerProjectileSpeed = 5f;
+        _playerProjectileSpeed = 10f;
     }
 }

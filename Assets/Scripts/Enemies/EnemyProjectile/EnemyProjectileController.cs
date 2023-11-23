@@ -4,8 +4,8 @@ public class EnemyProjectileController : MonoBehaviour
 {
     [Header("Components")]
     [SerializeField] private Rigidbody2D _enemyProjectileRigidBody;
+    private EnemiesProjectilesStack _enemyProjectilesStack;
     private Transform _enemyProjectileTransform;
-    public Enemy2Controller _enemy2Controller;
 
     [Header("Variables")]
     public Vector2 _enemyProjectileDirectionVector2;
@@ -26,12 +26,13 @@ public class EnemyProjectileController : MonoBehaviour
     {
         _enemyProjectileRigidBody.velocity = Vector2.zero;
         gameObject.SetActive(false);
-        _enemy2Controller._enemyProjectilesStack.Push(gameObject);
+        _enemyProjectilesStack._enemyProjectilesStack.Push(gameObject);
     }
 
     private void EnemyProjectileControllerInitialization()
     {
         _enemyProjectileTransform = GetComponent<Transform>();
-        _enemyProjectileSpeed = 5f;
+        _enemyProjectilesStack = GameObject.Find("EnemiesProjectiles").GetComponent<EnemiesProjectilesStack>();
+        _enemyProjectileSpeed = 1.5f;
     }
 }

@@ -5,12 +5,13 @@ public class EnemiesManager : MonoBehaviour
     [Header("Components")]
     [SerializeField] private Transform _enemyTransform;
     [SerializeField] private Rigidbody2D _enemyRigidBody;
+    [SerializeField] private Enemy2Controller _enemy2Controller;
     [SerializeField] private AnimationCurve _enemyAnimationCurve;
     private Transform _enemySpawnPosition;
 
     [Header("Variables")]
-    private string _playerCollisionTag;
     private string _playerProjectileCollisionTag;
+    private string _collisionTag;
     private bool _enemyIsAlive;
 
     [Header("Movement")]
@@ -37,7 +38,7 @@ public class EnemiesManager : MonoBehaviour
     private void EnemyManagerInitialization()
     {
         _enemySpawnPosition = GameObject.Find("EnemiesSpawnPoint").transform;
-        _playerCollisionTag = "Player";
+        _enemy2Controller = GetComponent<Enemy2Controller>();
         _playerProjectileCollisionTag = "PlayerProjectile";
         _enemyIsAlive = true;
         _movementTimer = 0f;
@@ -53,11 +54,11 @@ public class EnemiesManager : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        _playerProjectileCollisionTag = collision.gameObject.tag;
+        _collisionTag = collision.gameObject.tag;
 
-        if (_enemyRigidBody.CompareTag(_playerCollisionTag) || _enemyRigidBody.CompareTag(_playerProjectileCollisionTag))
+        if (_collisionTag == _playerProjectileCollisionTag)
         {
-            gameObject.SetActive(false);
+            _enemy2Controller.OnOutOfBoundAndPlayerCollision();
             _enemyIsAlive = false;
         }
     }

@@ -4,10 +4,12 @@ public class PlayerManager : MonoBehaviour
 {
     [Header("Components")]
     [SerializeField] private Rigidbody2D _playerRigidBody;
+    private PlayerController _playerController;
 
     [Header("Variables")]
     private string _enemyCollisionTag;
     private string _enemyProjectileCollisionTag;
+    private string _collisionTag;
     private bool _playerIsAlive;
 
     private void Awake()
@@ -17,6 +19,7 @@ public class PlayerManager : MonoBehaviour
 
     private void PlayerManagerInitialization()
     {
+        _playerController = GetComponent<PlayerController>();
         _enemyCollisionTag = "Enemy";
         _enemyProjectileCollisionTag = "EnemyProjectile";
         _playerIsAlive = true;
@@ -24,9 +27,9 @@ public class PlayerManager : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        _enemyProjectileCollisionTag = collision.gameObject.tag;
+        _collisionTag = collision.gameObject.tag;
 
-        if (_playerRigidBody.CompareTag(_enemyCollisionTag) || _playerRigidBody.CompareTag(_enemyProjectileCollisionTag))
-            _playerIsAlive = false;
+        if (_collisionTag == _enemyCollisionTag || _collisionTag == _enemyProjectileCollisionTag)
+            _playerController.EnemyCollision();
     }
 }

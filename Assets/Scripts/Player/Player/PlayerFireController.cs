@@ -71,7 +71,7 @@ public class PlayerFireController : MonoBehaviour
         _playerProjectileToLaunch = null;
         PlayerProjectilesListInitialization();
         _asPlayerFired = false;
-        _fireTimer = 0.5f;
+        _fireTimer = 0.2f;
         _fireTimerCounter = 0f;
     }
 }
