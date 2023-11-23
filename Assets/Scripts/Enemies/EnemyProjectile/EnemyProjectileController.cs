@@ -4,8 +4,8 @@ public class EnemyProjectileController : MonoBehaviour
 {
     [Header("Components")]
     [SerializeField] private Rigidbody2D _enemyProjectileRigidBody;
-    [SerializeField] private Transform _enemyProjectileTransform;
-    [SerializeField] private Enemy2Controller _enemy2Controller;
+    private Transform _enemyProjectileTransform;
+    public Enemy2Controller _enemy2Controller;
 
     [Header("Variables")]
     public Vector2 _enemyProjectileDirectionVector2;
@@ -18,6 +18,7 @@ public class EnemyProjectileController : MonoBehaviour
 
     public void OnFireAction()
     {
+        _enemyProjectileDirectionVector2 = _enemyProjectileTransform.TransformDirection(Vector3.up);
         _enemyProjectileRigidBody.velocity = _enemyProjectileDirectionVector2 * _enemyProjectileSpeed;
     }
 
@@ -30,7 +31,7 @@ public class EnemyProjectileController : MonoBehaviour
 
     private void EnemyProjectileControllerInitialization()
     {
-        _enemyProjectileDirectionVector2 = _enemyProjectileTransform.up;
+        _enemyProjectileTransform = GetComponent<Transform>();
         _enemyProjectileSpeed = 5f;
     }
 }

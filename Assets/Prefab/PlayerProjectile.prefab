@@ -189,5 +189,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerProjectileRigidBody: {fileID: 2849269627420577532}
   _playerProjectileTransform: {fileID: 4986602654841572902}
-  _playerFireController: {fileID: 7936927912938172712, guid: b3f53730a57074647b0cb86d255c35db, type: 3}
+  _playerFireController: {fileID: 0}
   _playerProjectileSpeed: 0

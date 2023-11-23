@@ -15,12 +15,6 @@ public class PlayerProjectileManager : MonoBehaviour
         PlayerManagerInitialization();
     }
 
-    private void Update()
-    {
-        if (!_playerProjectileSpriteRenderer.isVisible)
-            _playerProjectileController.OnOutOfBoundAndEnemyCollision();
-    }
-
     private void PlayerManagerInitialization()
     {
         _collisionTag = "Enemy";

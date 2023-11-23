@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class PlayerFireController : MonoBehaviour
@@ -43,23 +42,11 @@ public class PlayerFireController : MonoBehaviour
 
     private void PlayerFireGeneration()
     {
-        _playerProjectileToLaunch = _playerProjectileStack.Last();
+        _playerProjectileToLaunch = _playerProjectileStack.Pop();
         _playerProjectileToLaunch.SetActive(true);
         _playerProjectileToLaunch.transform.position = _playerTransform.position;
         _playerProjectileToLaunch.GetComponent<PlayerProjectileController>().OnFireAction();
-        _playerProjectileStack.Pop();
         _asPlayerFired = true;
-
-        //foreach (GameObject _playerProjectile in _playerProjectileList)
-        //{
-        //    if (!_playerProjectile.activeSelf && !_asPlayerFired)
-        //    {
-        //        _playerProjectile.SetActive(true);
-        //        _playerProjectile.transform.position = _playerTransform.position;
-        //        _playerProjectile.GetComponent<PlayerProjectileController>().OnFireAction();
-        //        _asPlayerFired = true;
-        //    }
-        //}
     }
 
     private void PlayerProjectilesListInitialization()
@@ -70,6 +57,7 @@ public class PlayerFireController : MonoBehaviour
             _projectile.SetActive(false);
             _projectile.transform.parent = _playerTransform;
             _projectile.name = _playerProjectileName + i.ToString();
+            _projectile.GetComponent<PlayerProjectileController>()._playerFireController = this;
             _playerProjectileStack.Push(_projectile);
         }
     }

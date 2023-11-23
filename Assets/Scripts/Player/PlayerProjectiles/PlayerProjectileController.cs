@@ -5,7 +5,7 @@ public class PlayerProjectileController : MonoBehaviour
     [Header("Components")]
     [SerializeField] private Rigidbody2D _playerProjectileRigidBody;
     [SerializeField] private Transform _playerProjectileTransform;
-    [SerializeField] private PlayerFireController _playerFireController;
+    public PlayerFireController _playerFireController;
 
     [Header("Variables")]
     private Vector2 _playerProjectileDirectionVector2;

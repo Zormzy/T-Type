@@ -179,6 +179,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemyProjectileRigidBody: {fileID: 2164318139366214130}
   _enemyProjectileTransform: {fileID: 1283613636488082177}
-  _enemy2Controller: {fileID: 8553048606652475600, guid: ba26bdc75b31584419c9bddb92a8fc9b, type: 3}
+  _enemy2Controller: {fileID: 0}
   _enemyProjectileDirectionVector2: {x: 0, y: 0}
   _enemyProjectileSpeed: 0

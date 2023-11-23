@@ -8,6 +8,7 @@ public class Enemy2Controller : MonoBehaviour
     [SerializeField] GameObject _enemyProjectilePrefab;
     [SerializeField] Rigidbody2D _enemyRigidBody;
     [SerializeField] Transform _enemyTransform;
+    private Transform _enemyProjectileTransformParent;
 
     [Header("Projectiles")]
     private List<Quaternion> _enemyProjectileDirectionQuaternion;
@@ -37,7 +38,7 @@ public class Enemy2Controller : MonoBehaviour
     {
         if (_enemyProjectileSpawnTimerCounter >= _enemyProjectileSpawnTimer)
         {
-            EnenmyProjectileSpawn();
+            EnemyProjectileSpawn();
             _enemyProjectileSpawnTimerCounter = 0f;
             _enemyProjectileAsSpawn = false;
         }
@@ -45,18 +46,17 @@ public class Enemy2Controller : MonoBehaviour
             _enemyProjectileSpawnTimerCounter += Time.deltaTime;
     }
 
-    private void EnenmyProjectileSpawn()
+    private void EnemyProjectileSpawn()
     {
-        for(int i = 0; i < _enemyProjectilesperAttackCount; i++)
+        for (int i = 0; i < _enemyProjectilesperAttackCount; i++)
         {
-            _enemyProjectileToLaunch = _enemyProjectilesStack.Last();
+            _enemyProjectileToLaunch = _enemyProjectilesStack.Pop();
             _enemyProjectileToLaunch.SetActive(true);
             _enemyProjectileToLaunch.transform.position = _enemyTransform.position;
             _enemyProjectileToLaunch.transform.rotation = _enemyProjectileDirectionQuaternion[i];
             _enemyProjectileToLaunch.GetComponent<EnemyProjectileController>().OnFireAction();
-            _enemyProjectilesStack.Pop();
         }
-            _enemyProjectileAsSpawn = true;
+        _enemyProjectileAsSpawn = true;
     }
 
     public void OnOutOfBoundAndPlayerCollision()
@@ -72,8 +72,9 @@ public class Enemy2Controller : MonoBehaviour
         {
             GameObject _projectile = Instantiate(_enemyProjectilePrefab);
             _projectile.SetActive(false);
-            _projectile.transform.parent = _enemyTransform;
+            _projectile.transform.parent = _enemyProjectileTransformParent;
             _projectile.name = _playerProjectileName + i.ToString();
+            _projectile.GetComponent<EnemyProjectileController>()._enemy2Controller = this;
             _enemyProjectilesStack.Push(_projectile);
         }
     }
@@ -93,8 +94,9 @@ public class Enemy2Controller : MonoBehaviour
 
         _enemyProjectilesStack = new Stack<GameObject>();
         _enemyProjectileToLaunch = null;
+        _enemyProjectileTransformParent = GameObject.Find("EnemiesProjectiles").transform;
         EnemyProjectilesListInitialization();
-        _enemyProjectileSpawnTimer = 1.5f;
+        _enemyProjectileSpawnTimer = 0.5f;
         _enemyProjectileSpawnTimerCounter = 0f;
         _enemyProjectileAsSpawn = false;
     }
