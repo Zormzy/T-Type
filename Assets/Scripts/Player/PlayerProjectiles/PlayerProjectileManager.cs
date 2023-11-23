@@ -8,7 +8,9 @@ public class PlayerProjectileManager : MonoBehaviour
     [SerializeField] private PlayerProjectileController _playerProjectileController;
 
     [Header("Variables")]
+    private string _enemyCollisionTag;
     private string _collisionTag;
+    public int _damage;
 
     private void Awake()
     {
@@ -17,17 +19,26 @@ public class PlayerProjectileManager : MonoBehaviour
 
     private void PlayerManagerInitialization()
     {
-        _collisionTag = "Enemy";
+        _enemyCollisionTag = "Enemy";
+        _damage = 1;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         _collisionTag = collision.gameObject.tag;
 
-        if (_playerProjectileRigidBody.CompareTag(_collisionTag))
-        {
+        if (_collisionTag == _enemyCollisionTag)
             _playerProjectileController.OnOutOfBoundAndEnemyCollision();
-            collision.gameObject.GetComponent<EnemiesManager>().OnPlayerProjectileCollision();
-        }
     }
+
+    //private void OnCollisionEnter2D(Collision2D collision)
+    //{
+    //    _collisionTag = collision.gameObject.tag;
+
+    //    if (_playerProjectileRigidBody.CompareTag(_collisionTag))
+    //    {
+    //        _playerProjectileController.OnOutOfBoundAndEnemyCollision();
+    //        collision.gameObject.GetComponent<EnemiesManager>().OnPlayerProjectileCollision();
+    //    }
+    //}
 }

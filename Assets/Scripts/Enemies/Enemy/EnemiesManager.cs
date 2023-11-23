@@ -13,6 +13,8 @@ public class EnemiesManager : MonoBehaviour
     private string _playerProjectileCollisionTag;
     private string _collisionTag;
     private bool _enemyIsAlive;
+    private int _hitPoints;
+    private int _maxHitPoints;
 
     [Header("Movement")]
     public Vector2 _enemyMovementDirection;
@@ -35,15 +37,14 @@ public class EnemiesManager : MonoBehaviour
         _enemyTransform.position = _enemyMovementDirection;
     }
 
-    private void EnemyManagerInitialization()
+    public void OnHit(int damagePoints)
     {
-        _enemySpawnPosition = GameObject.Find("EnemiesSpawnPoint").transform;
-        _enemy2Controller = GetComponent<Enemy2Controller>();
-        _playerProjectileCollisionTag = "PlayerProjectile";
-        _enemyIsAlive = true;
-        _movementTimer = 0f;
-        _movementSpeed = 0.5f;
-        _enemyMovementDirection = Vector2.down;
+        _hitPoints -= damagePoints;
+    }
+
+    public void EnemyReset()
+    {
+        _hitPoints = _maxHitPoints;
     }
 
     public void OnPlayerProjectileCollision()
@@ -52,14 +53,46 @@ public class EnemiesManager : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void EnemyManagerInitialization()
+    {
+        _enemySpawnPosition = GameObject.Find("EnemiesSpawnPoint").transform;
+        _enemy2Controller = GetComponent<Enemy2Controller>();
+        _playerProjectileCollisionTag = "PlayerProjectile";
+        _enemyIsAlive = true;
+        _movementTimer = 0f;
+        _movementSpeed = 0.5f;
+        _maxHitPoints = 10;
+        _hitPoints = _maxHitPoints;
+        _enemyMovementDirection = Vector2.down;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         _collisionTag = collision.gameObject.tag;
 
         if (_collisionTag == _playerProjectileCollisionTag)
         {
-            _enemy2Controller.OnOutOfBoundAndPlayerCollision();
-            _enemyIsAlive = false;
+            OnHit(collision.gameObject.GetComponent<PlayerProjectileManager>()._damage);
+            if (_hitPoints <= 0)
+            {
+                _enemy2Controller.OnOutOfBoundAndPlayerCollision();
+                _enemyIsAlive = false;
+            }
         }
     }
+
+    //private void OnCollisionEnter2D(Collision2D collision)
+    //{
+    //    _collisionTag = collision.gameObject.tag;
+
+    //    if (_collisionTag == _playerProjectileCollisionTag)
+    //    {
+    //        OnHit(collision.gameObject.GetComponent<PlayerProjectileManager>()._damage);
+    //        if (_hitPoints <= 0)
+    //        {
+    //            _enemy2Controller.OnOutOfBoundAndPlayerCollision();
+    //            _enemyIsAlive = false;
+    //        }
+    //    }
+    //}
 }

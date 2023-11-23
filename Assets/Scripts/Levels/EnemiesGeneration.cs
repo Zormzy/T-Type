@@ -48,6 +48,7 @@ public class EnemiesGeneration : MonoBehaviour
         {
             if (!enemy.activeSelf && !_enemyAsSpawn)
             {
+                enemy.GetComponent<EnemiesManager>().EnemyReset();
                 enemy.SetActive(true);
                 enemy.transform.position = _enemySpawnPointRand;
                 _enemyAsSpawn = true;
