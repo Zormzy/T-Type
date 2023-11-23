@@ -45,7 +45,10 @@ public class PlayerFireController : MonoBehaviour
         _playerProjectileToLaunch = _playerProjectileStack.Pop();
         _playerProjectileToLaunch.SetActive(true);
         _playerProjectileToLaunch.transform.position = _playerTransform.position;
-        _playerProjectileToLaunch.GetComponent<PlayerProjectileController>().OnFireAction();
+
+        if (_playerProjectileToLaunch.GetComponent<PlayerProjectileController>() != null)
+            _playerProjectileToLaunch.GetComponent<PlayerProjectileController>().OnFireAction();
+
         _asPlayerFired = true;
     }
 

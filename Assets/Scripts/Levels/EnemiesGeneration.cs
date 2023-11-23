@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemiesGeneration : MonoBehaviour
@@ -6,12 +5,13 @@ public class EnemiesGeneration : MonoBehaviour
     [Header("Components")]
     [SerializeField] private GameObject _enemyPrefab;
     [SerializeField] private Transform _enemyTransformParent;
+    private EnemiesStacks _enemyStacks;
+    private GameObject _enemyToLaunch;
 
     [Header("Enemies infos")]
     [SerializeField] private Transform _enemySpawnPoint;
     private Vector3 _enemySpawnPointRand;
-    public List<GameObject> Enemies;
-    public int _enemiesCount;
+    private int _enemyToSpawn;
 
     [Header("Enemies spawn timer")]
     public float _enemySpawnTimer;
@@ -33,6 +33,7 @@ public class EnemiesGeneration : MonoBehaviour
         if (_enemySpawnTimerCounter >= _enemySpawnTimer)
         {
             _enemySpawnPointRand.Set(_enemySpawnPoint.position.x + Random.Range(-5f, 5f), _enemySpawnPoint.position.y, _enemySpawnPoint.position.z);
+            _enemyToSpawn = Random.Range(0, 1);
             EnemySpawn();
             _enemySpawnTimer = Random.Range(4.00f, 6.00f);
             _enemySpawnTimerCounter = 0f;
@@ -44,38 +45,29 @@ public class EnemiesGeneration : MonoBehaviour
 
     private void EnemySpawn()
     {
-        foreach (GameObject _enemy in Enemies)
+        switch (_enemyToSpawn)
         {
-            if (!_enemy.activeSelf && !_enemyAsSpawn)
-            {
-                _enemy.GetComponent<EnemiesManager>().EnemyReset();
-                _enemy.GetComponent<EnemiesManager>()._movementTimer = Random.Range(0f, 30f);
-                _enemy.SetActive(true);
-                _enemy.transform.position = _enemySpawnPointRand;
-                _enemyAsSpawn = true;
-            }
+            case 0:
+                _enemyToLaunch = _enemyStacks._enemyNormal1Stack.Pop();
+                break;
+            case 1:
+                _enemyToLaunch = _enemyStacks._enemyNormal2Stack.Pop();
+                break;
+            default:
+                break;
         }
-    }
-
-    private void EnemiesStartSpawn()
-    {
-        for (int i = 0; i < _enemiesCount; i++)
-        {
-            GameObject _enemy = Instantiate(_enemyPrefab);
-            _enemy.SetActive(false);
-            _enemy.transform.parent = _enemyTransformParent;
-            _enemy.transform.position = _enemySpawnPointRand;
-            _enemy.name = "Enemy n°" + i.ToString();
-            Enemies.Add(_enemy);
-        }
+        
+        _enemyToLaunch.GetComponent<EnemiesManager>().EnemyReset();
+        _enemyToLaunch.GetComponent<EnemiesManager>()._movementTimer = Random.Range(0f, 30f);
+        _enemyToLaunch.SetActive(true);
+        _enemyToLaunch.transform.position = _enemySpawnPointRand;
+        _enemyAsSpawn = true;
     }
 
     private void EnemiesGenerationInitialization()
     {
-        Enemies = new List<GameObject>();
-        _enemiesCount = 10;
-        _enemySpawnPointRand.Set(_enemySpawnPoint.position.x + Random.Range(-5f, 5f), _enemySpawnPoint.position.y, _enemySpawnPoint.position.z);
-        EnemiesStartSpawn();
+        _enemyStacks = GameObject.Find("Enemies").GetComponent<EnemiesStacks>();
+        //_enemySpawnPointRand.Set(_enemySpawnPoint.position.x + Random.Range(-5f, 5f), _enemySpawnPoint.position.y, _enemySpawnPoint.position.z);
         _enemySpawnTimer = 5f;
         _enemySpawnTimerCounter = 2f;
         _enemyAsSpawn = false;

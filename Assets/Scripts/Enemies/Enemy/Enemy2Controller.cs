@@ -48,7 +48,9 @@ public class Enemy2Controller : MonoBehaviour
             _enemyProjectileToLaunch.SetActive(true);
             _enemyProjectileToLaunch.transform.position = _enemyTransform.position;
             _enemyProjectileToLaunch.transform.rotation = _enemyProjectileDirectionQuaternion[i];
-            _enemyProjectileToLaunch.GetComponent<EnemyProjectileController>().OnFireAction();
+
+            if (_enemyProjectileToLaunch.GetComponent<EnemyProjectileController>() != null)
+                _enemyProjectileToLaunch.GetComponent<EnemyProjectileController>().OnFireAction();
         }
         _enemyProjectileAsSpawn = true;
     }

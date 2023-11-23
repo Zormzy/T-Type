@@ -10,6 +10,7 @@ public class EnemyProjectileController : MonoBehaviour
     [Header("Variables")]
     public Vector2 _enemyProjectileDirectionVector2;
     public float _enemyProjectileSpeed;
+    public int _damage;
 
     private void Awake()
     {

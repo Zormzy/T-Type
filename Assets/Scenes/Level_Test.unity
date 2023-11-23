@@ -258,7 +258,7 @@ Transform:
   m_GameObject: {fileID: 423464361}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 5, z: 0}
+  m_LocalPosition: {x: 0, y: 5.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -795,8 +795,6 @@ MonoBehaviour:
   _enemyPrefab: {fileID: 5138054985237844162, guid: ba26bdc75b31584419c9bddb92a8fc9b, type: 3}
   _enemyTransformParent: {fileID: 1985486645}
   _enemySpawnPoint: {fileID: 423464362}
-  Enemies: []
-  _enemiesCount: 0
   _enemySpawnTimer: 0
   _enemySpawnTimerCounter: 0
 --- !u!114 &1483005165
@@ -905,6 +903,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1985486645}
+  - component: {fileID: 1985486646}
   m_Layer: 0
   m_Name: Enemies
   m_TagString: Untagged
@@ -927,6 +926,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1985486646
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1985486644}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57f7d7ddba9101540ae1589d3afb3a03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _enemyNormal1Prefab: {fileID: 5138054985237844162, guid: ba26bdc75b31584419c9bddb92a8fc9b, type: 3}
+  _enemyNormal2Prefab: {fileID: 5138054985237844162, guid: ba26bdc75b31584419c9bddb92a8fc9b, type: 3}
+  _enemyNormal1Count: 0
+  _enemyNormal2Count: 0
 --- !u!1 &2057398430
 GameObject:
   m_ObjectHideFlags: 0
