@@ -34,7 +34,7 @@ public class EnemiesManager : MonoBehaviour
     private void EnemyMovement()
     {
         _enemyMovementDirection.Set(_enemySpawnPosition.position.x + _enemyAnimationCurve.Evaluate(Time.time - _movementTimer), _enemyTransform.position.y - _movementSpeed * Time.deltaTime);
-        _enemyTransform.position = _enemyMovementDirection;
+       _enemyTransform.position = _enemyMovementDirection;
     }
 
     public void OnHit(int damagePoints)
@@ -80,19 +80,4 @@ public class EnemiesManager : MonoBehaviour
             }
         }
     }
-
-    //private void OnCollisionEnter2D(Collision2D collision)
-    //{
-    //    _collisionTag = collision.gameObject.tag;
-
-    //    if (_collisionTag == _playerProjectileCollisionTag)
-    //    {
-    //        OnHit(collision.gameObject.GetComponent<PlayerProjectileManager>()._damage);
-    //        if (_hitPoints <= 0)
-    //        {
-    //            _enemy2Controller.OnOutOfBoundAndPlayerCollision();
-    //            _enemyIsAlive = false;
-    //        }
-    //    }
-    //}
 }

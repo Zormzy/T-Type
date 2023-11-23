@@ -29,6 +29,6 @@ public class PlayerInputsController : MonoBehaviour
     private void PlayerInputsControllerInitialize()
     {
         _playerDirectionVector2 = Vector2.zero;
-        _playerSpeed = 10f;
+        _playerSpeed = 7.5f;
     }
 }

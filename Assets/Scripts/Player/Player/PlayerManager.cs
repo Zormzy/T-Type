@@ -32,12 +32,4 @@ public class PlayerManager : MonoBehaviour
         if (_collisionTag == _enemyCollisionTag || _collisionTag == _enemyProjectileCollisionTag)
             _playerController.EnemyCollision();
     }
-
-    //private void OnCollisionEnter2D(Collision2D collision)
-    //{
-    //    _collisionTag = collision.gameObject.tag;
-
-    //    if (_collisionTag == _enemyCollisionTag || _collisionTag == _enemyProjectileCollisionTag)
-    //        _playerController.EnemyCollision();
-    //}
 }

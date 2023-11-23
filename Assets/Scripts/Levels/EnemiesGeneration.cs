@@ -33,7 +33,7 @@ public class EnemiesGeneration : MonoBehaviour
         if (_enemySpawnTimerCounter >= _enemySpawnTimer)
         {
             _enemySpawnPointRand.Set(_enemySpawnPoint.position.x + Random.Range(-5f, 5f), _enemySpawnPoint.position.y, _enemySpawnPoint.position.z);
-            EnenmySpawn();
+            EnemySpawn();
             _enemySpawnTimer = Random.Range(4.00f, 6.00f);
             _enemySpawnTimerCounter = 0f;
             _enemyAsSpawn = false;
@@ -42,15 +42,16 @@ public class EnemiesGeneration : MonoBehaviour
             _enemySpawnTimerCounter += Time.deltaTime;
     }
 
-    private void EnenmySpawn()
+    private void EnemySpawn()
     {
-        foreach (GameObject enemy in Enemies)
+        foreach (GameObject _enemy in Enemies)
         {
-            if (!enemy.activeSelf && !_enemyAsSpawn)
+            if (!_enemy.activeSelf && !_enemyAsSpawn)
             {
-                enemy.GetComponent<EnemiesManager>().EnemyReset();
-                enemy.SetActive(true);
-                enemy.transform.position = _enemySpawnPointRand;
+                _enemy.GetComponent<EnemiesManager>().EnemyReset();
+                _enemy.GetComponent<EnemiesManager>()._movementTimer = Random.Range(0f, 30f);
+                _enemy.SetActive(true);
+                _enemy.transform.position = _enemySpawnPointRand;
                 _enemyAsSpawn = true;
             }
         }
