@@ -14,6 +14,7 @@ public class PlayerFireController : MonoBehaviour
     [Header("Projectiles")]
     public Stack<GameObject> _playerProjectileStack;
     private GameObject _playerProjectileToLaunch;
+    private Transform _playerProjectilesTransformParent;
     private string _playerProjectileName;
     private bool _asPlayerFired;
     public int _playerProjectileCount;
@@ -58,7 +59,7 @@ public class PlayerFireController : MonoBehaviour
         {
             GameObject _projectile = Instantiate(_playerProjectilePrefab);
             _projectile.SetActive(false);
-            _projectile.transform.parent = _playerTransform;
+            _projectile.transform.parent = _playerProjectilesTransformParent;
             _projectile.name = _playerProjectileName + i.ToString();
             _projectile.GetComponent<PlayerProjectileController>()._playerFireController = this;
             _playerProjectileStack.Push(_projectile);
@@ -67,6 +68,7 @@ public class PlayerFireController : MonoBehaviour
 
     private void PlayerFireControllerInitialization()
     {
+        _playerProjectilesTransformParent = GameObject.Find("PlayerProjectiles").transform;
         _playerTransform = transform;
         _playerProjectileName = "Player projectile n°";
         _playerProjectileCount = 20;

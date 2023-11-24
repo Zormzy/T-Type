@@ -46,6 +46,7 @@ public class EnemiesManager : MonoBehaviour
 
     public void EnemyReset()
     {
+        _enemyTransform.position = _enemySpawnPosition.position;
         _hitPoints = _maxHitPoints;
     }
 

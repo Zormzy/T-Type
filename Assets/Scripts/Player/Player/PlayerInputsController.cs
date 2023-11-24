@@ -14,6 +14,7 @@ public class PlayerInputsController : MonoBehaviour
     public Vector2 _playerDirectionVector2;
     public float _playerSpeed;
 
+
     private void Awake()
     {
         PlayerInputsControllerInitialize();
@@ -42,8 +43,8 @@ public class PlayerInputsController : MonoBehaviour
     {
         _camera = Camera.main;
         _screenBounds = _camera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, _camera.transform.position.z));
-        _playerWidth = transform.GetComponent<SpriteRenderer>().bounds.size.x / 2;
-        _playerHeight = transform.GetComponent<SpriteRenderer>().bounds.size.y / 2;
+        _playerWidth = transform.GetComponent<SpriteRenderer>().sprite.bounds.min.x / 2;
+        _playerHeight = transform.GetComponent<SpriteRenderer>().sprite.bounds.min.y / 2;
         _playerDirectionVector2 = Vector2.zero;
         _playerSpeed = 7.5f;
     }
