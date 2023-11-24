@@ -8,6 +8,7 @@ public class EnemiesManager : MonoBehaviour
     [SerializeField] private Enemy1Controller _enemy1Controller;
     [SerializeField] private Enemy2Controller _enemy2Controller;
     [SerializeField] private AnimationCurve _enemyAnimationCurve;
+    private ScoreUI _scoreUI;
     private Transform _enemySpawnPosition;
 
     [Header("Variables")]
@@ -70,6 +71,7 @@ public class EnemiesManager : MonoBehaviour
         }
 
         _enemySpawnPosition = GameObject.Find("EnemiesSpawnPoint").transform;
+        _scoreUI = GameObject.Find("UIManager").GetComponent<ScoreUI>();
         _playerProjectileCollisionTag = "PlayerProjectile";
         _enemyIsAlive = true;
         _movementTimer = 0f;
@@ -88,6 +90,7 @@ public class EnemiesManager : MonoBehaviour
             OnHit(collision.gameObject.GetComponent<PlayerProjectileManager>()._damage);
             if (_hitPoints <= 0)
             {
+                _scoreUI.AddScoreMultipler();
                 switch (_enemyControllerNumber)
                 {
                     case 1:
