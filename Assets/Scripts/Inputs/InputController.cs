@@ -35,6 +35,15 @@ public partial class @InputController: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""d7a92499-2165-4a8d-8433-38685262e8d7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -257,6 +266,17 @@ public partial class @InputController: IInputActionCollection2, IDisposable
                     ""action"": ""Movements"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4ab804cc-9c41-4379-8343-6367e72f6039"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -266,6 +286,7 @@ public partial class @InputController: IInputActionCollection2, IDisposable
         // Controls
         m_Controls = asset.FindActionMap("Controls", throwIfNotFound: true);
         m_Controls_Movements = m_Controls.FindAction("Movements", throwIfNotFound: true);
+        m_Controls_Pause = m_Controls.FindAction("Pause", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -328,11 +349,13 @@ public partial class @InputController: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Controls;
     private List<IControlsActions> m_ControlsActionsCallbackInterfaces = new List<IControlsActions>();
     private readonly InputAction m_Controls_Movements;
+    private readonly InputAction m_Controls_Pause;
     public struct ControlsActions
     {
         private @InputController m_Wrapper;
         public ControlsActions(@InputController wrapper) { m_Wrapper = wrapper; }
         public InputAction @Movements => m_Wrapper.m_Controls_Movements;
+        public InputAction @Pause => m_Wrapper.m_Controls_Pause;
         public InputActionMap Get() { return m_Wrapper.m_Controls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -345,6 +368,9 @@ public partial class @InputController: IInputActionCollection2, IDisposable
             @Movements.started += instance.OnMovements;
             @Movements.performed += instance.OnMovements;
             @Movements.canceled += instance.OnMovements;
+            @Pause.started += instance.OnPause;
+            @Pause.performed += instance.OnPause;
+            @Pause.canceled += instance.OnPause;
         }
 
         private void UnregisterCallbacks(IControlsActions instance)
@@ -352,6 +378,9 @@ public partial class @InputController: IInputActionCollection2, IDisposable
             @Movements.started -= instance.OnMovements;
             @Movements.performed -= instance.OnMovements;
             @Movements.canceled -= instance.OnMovements;
+            @Pause.started -= instance.OnPause;
+            @Pause.performed -= instance.OnPause;
+            @Pause.canceled -= instance.OnPause;
         }
 
         public void RemoveCallbacks(IControlsActions instance)
@@ -372,5 +401,6 @@ public partial class @InputController: IInputActionCollection2, IDisposable
     public interface IControlsActions
     {
         void OnMovements(InputAction.CallbackContext context);
+        void OnPause(InputAction.CallbackContext context);
     }
 }

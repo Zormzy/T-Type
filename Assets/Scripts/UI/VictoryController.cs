@@ -9,6 +9,7 @@ public class VictoryController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _victoryScoreText;
     [SerializeField] private TextMeshProUGUI _victoryFinalScoreText;
     [SerializeField] private PauseController _pauseController;
+    [SerializeField] private EnemiesGeneration _enemiesGeneration;
     [SerializeField] private ScoreUI _scoreUI;
 
     [Header("Varibales")]
@@ -35,6 +36,7 @@ public class VictoryController : MonoBehaviour
         {
             _pauseController.PauseGame(true, _asWon);
             _victoryTitleText.text = "Victory";
+            _enemiesGeneration._playerAsWon = true;
         }
         else
         {
@@ -48,19 +50,9 @@ public class VictoryController : MonoBehaviour
         _victoryControlStatus = true;
     }
 
-    //public void OnPlayerFailure()
-    //{
-    //    _pauseController.PauseGame(true, false);
-    //    _victoryTitleText.text = "Failure";
-    //    _victoryScoreText.text = scoreUI.GetScore();
-    //    _victoryFinalScoreText.text = scoreUI.GetFinalScore();
-    //    _victoryCanvas.SetActive(true);
-    //    _victoryControlStatus = true;
-    //}
-
     private void VictoryControllerInitialization()
     {
-        _victoryTimer = 300f;
+        _victoryTimer = 15f;
         _victoryTimerCounter = 0f;
         _victoryControlStatus = false;
     }
