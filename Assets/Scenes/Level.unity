@@ -2376,6 +2376,7 @@ MonoBehaviour:
   _enemySpawnPoint: {fileID: 423464362}
   _enemySpawnTimer: 0
   _enemySpawnTimerCounter: 0
+  _playerAsWon: 0
 --- !u!114 &1483005165
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2502,6 +2503,7 @@ MonoBehaviour:
   _victoryScoreText: {fileID: 1054433756}
   _victoryFinalScoreText: {fileID: 902267474}
   _pauseController: {fileID: 1550161246}
+  _enemiesGeneration: {fileID: 1483005164}
   _scoreUI: {fileID: 1550161244}
 --- !u!1 &1603370459
 GameObject:

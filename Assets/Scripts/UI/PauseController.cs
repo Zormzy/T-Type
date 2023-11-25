@@ -17,7 +17,10 @@ public class PauseController : MonoBehaviour
     public void PauseGame(bool _victoryDone, bool _victoryStatus)
     {
         if (!_victoryDone)
+        {
             _pauseCanvas.SetActive(true);
+            Time.timeScale = 0.0f;
+        }
         else if (_victoryDone && _victoryStatus)
         {
             foreach (GameObject _gameObject in GameObject.FindGameObjectsWithTag("EnemyN1"))
@@ -45,8 +48,6 @@ public class PauseController : MonoBehaviour
                 _gameObject.SetActive(false);
             }
         }
-
-        Time.timeScale = 0.0f;
         _scoreUI._gamePaused = true;
         _isPaused = true;
     }
