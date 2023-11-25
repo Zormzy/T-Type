@@ -18,7 +18,7 @@ public class PauseController : MonoBehaviour
     {
         if (!_victoryDone)
             _pauseCanvas.SetActive(true);
-        else if (!_victoryStatus)
+        else if (_victoryDone && !_victoryStatus)
         {
             foreach(GameObject _gameObject in GameObject.FindGameObjectsWithTag("EnemyN1"))
             {
@@ -29,6 +29,10 @@ public class PauseController : MonoBehaviour
                 _gameObject.SetActive(false);
             }
             foreach (GameObject _gameObject in GameObject.FindGameObjectsWithTag("EnemyProjectile"))
+            {
+                _gameObject.SetActive(false);
+            }
+            foreach (GameObject _gameObject in GameObject.FindGameObjectsWithTag("PlayerProjectile"))
             {
                 _gameObject.SetActive(false);
             }

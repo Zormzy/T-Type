@@ -40,7 +40,7 @@ public class PlayerManager : MonoBehaviour
         {
             _playerController.EnemyCollision();
             _scoreUI._playerIsAlive = false;
-            _victoryController.OnPlayerFailure();
+            _victoryController.OnPlayerVictory(false);
         }
     }
 }

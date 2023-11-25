@@ -9,7 +9,7 @@ public class VictoryController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _victoryScoreText;
     [SerializeField] private TextMeshProUGUI _victoryFinalScoreText;
     [SerializeField] private PauseController _pauseController;
-    [SerializeField] private ScoreUI scoreUI;
+    [SerializeField] private ScoreUI _scoreUI;
 
     [Header("Varibales")]
     private float _victoryTimer;
@@ -24,30 +24,39 @@ public class VictoryController : MonoBehaviour
     private void Update()
     {
         if (_victoryTimerCounter >= _victoryTimer && !_victoryControlStatus)
-            OnPlayerVictory();
+            OnPlayerVictory(true);
         else
             _victoryTimerCounter += Time.deltaTime;
     }
 
-    public void OnPlayerVictory()
+    public void OnPlayerVictory(bool _asWon)
     {
-        _pauseController.PauseGame(true, true);
-        _victoryTitleText.text = "Victory";
-        _victoryScoreText.text = scoreUI.GetScore();
-        _victoryFinalScoreText.text = scoreUI.GetFinalScore();
+        if (_asWon)
+        {
+            _pauseController.PauseGame(true, _asWon);
+            _victoryTitleText.text = "Victory";
+        }
+        else
+        {
+            _pauseController.PauseGame(true, _asWon);
+            _victoryTitleText.text = "Failure";
+        }
+        _scoreUI._victory = true;
+        _victoryScoreText.text = _scoreUI.GetScore();
+        _victoryFinalScoreText.text = _scoreUI.GetFinalScore();
         _victoryCanvas.SetActive(true);
         _victoryControlStatus = true;
     }
 
-    public void OnPlayerFailure()
-    {
-        _pauseController.PauseGame(true, false);
-        _victoryTitleText.text = "Failure";
-        _victoryScoreText.text = scoreUI.GetScore();
-        _victoryFinalScoreText.text = scoreUI.GetFinalScore();
-        _victoryCanvas.SetActive(true);
-        _victoryControlStatus = true;
-    }
+    //public void OnPlayerFailure()
+    //{
+    //    _pauseController.PauseGame(true, false);
+    //    _victoryTitleText.text = "Failure";
+    //    _victoryScoreText.text = scoreUI.GetScore();
+    //    _victoryFinalScoreText.text = scoreUI.GetFinalScore();
+    //    _victoryCanvas.SetActive(true);
+    //    _victoryControlStatus = true;
+    //}
 
     private void VictoryControllerInitialization()
     {

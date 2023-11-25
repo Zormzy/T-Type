@@ -2502,7 +2502,7 @@ MonoBehaviour:
   _victoryScoreText: {fileID: 1054433756}
   _victoryFinalScoreText: {fileID: 902267474}
   _pauseController: {fileID: 1550161246}
-  scoreUI: {fileID: 1550161244}
+  _scoreUI: {fileID: 1550161244}
 --- !u!1 &1603370459
 GameObject:
   m_ObjectHideFlags: 0

@@ -45,7 +45,11 @@ public class ScoreUI : MonoBehaviour
 
     public string GetFinalScore()
     {
-        _finalScore = (int)_score * _scoreMultiplier;
+        if (_scoreMultiplier == 0)
+            _finalScore = (int)_score;
+        else
+            _finalScore = (int)_score * _scoreMultiplier;
+
         _scoreFinalVictoryText = "Final score\n" + _finalScore.ToString();
         return _scoreFinalVictoryText;
     }
@@ -55,7 +59,7 @@ public class ScoreUI : MonoBehaviour
         _scoreText = "";
         _scoreVictoryText = "";
         _scoreFinalVictoryText = "";
-        _playerIsAlive = false;
+        _playerIsAlive = true;
         _gamePaused = false;
         _victory = false;
         _score = 0f;
