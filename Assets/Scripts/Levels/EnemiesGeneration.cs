@@ -16,7 +16,7 @@ public class EnemiesGeneration : MonoBehaviour
     [Header("Enemies spawn timer")]
     public float _enemySpawnTimer;
     public float _enemySpawnTimerCounter;
-    private bool _enemyAsSpawn;
+    public bool _playerAsWon;
 
     private void Awake()
     {
@@ -25,7 +25,8 @@ public class EnemiesGeneration : MonoBehaviour
 
     private void Update()
     {
-        EnemiesSpawnTimer();
+        if (!_playerAsWon)
+            EnemiesSpawnTimer();
     }
 
     private void EnemiesSpawnTimer()
@@ -37,7 +38,6 @@ public class EnemiesGeneration : MonoBehaviour
             EnemySpawn();
             _enemySpawnTimer = Random.Range(4.00f, 6.00f);
             _enemySpawnTimerCounter = 0f;
-            _enemyAsSpawn = false;
         }
         else
             _enemySpawnTimerCounter += Time.deltaTime;
@@ -56,12 +56,10 @@ public class EnemiesGeneration : MonoBehaviour
             default:
                 break;
         }
-        
         _enemyToLaunch.GetComponent<EnemiesManager>().EnemyReset();
         _enemyToLaunch.GetComponent<EnemiesManager>()._movementTimer = Random.Range(0f, 30f);
         _enemyToLaunch.SetActive(true);
         _enemyToLaunch.transform.position = _enemySpawnPointRand;
-        _enemyAsSpawn = true;
     }
 
     private void EnemiesGenerationInitialization()
@@ -69,6 +67,6 @@ public class EnemiesGeneration : MonoBehaviour
         _enemyStacks = GameObject.Find("Enemies").GetComponent<EnemiesStacks>();
         _enemySpawnTimer = 5f;
         _enemySpawnTimerCounter = 2f;
-        _enemyAsSpawn = false;
+        _playerAsWon = false;
     }
 }

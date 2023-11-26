@@ -8,7 +8,8 @@ public class PlayerProjectileManager : MonoBehaviour
     [SerializeField] private PlayerProjectileController _playerProjectileController;
 
     [Header("Variables")]
-    private string _enemyCollisionTag;
+    private string _enemyN1CollisionTag;
+    private string _enemyN2CollisionTag;
     private string _collisionTag;
     public int _damage;
 
@@ -19,7 +20,8 @@ public class PlayerProjectileManager : MonoBehaviour
 
     private void PlayerManagerInitialization()
     {
-        _enemyCollisionTag = "Enemy";
+        _enemyN1CollisionTag = "EnemyN1";
+        _enemyN2CollisionTag = "EnemyN2";
         _damage = 1;
     }
 
@@ -27,7 +29,7 @@ public class PlayerProjectileManager : MonoBehaviour
     {
         _collisionTag = collision.gameObject.tag;
 
-        if (_collisionTag == _enemyCollisionTag)
+        if (_collisionTag == _enemyN1CollisionTag || _collisionTag == _enemyN2CollisionTag)
             _playerProjectileController.OnOutOfBoundAndEnemyCollision();
     }
 }

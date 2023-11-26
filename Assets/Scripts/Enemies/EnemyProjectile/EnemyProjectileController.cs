@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyProjectileController : MonoBehaviour
@@ -24,10 +23,7 @@ public class EnemyProjectileController : MonoBehaviour
     private void LateUpdate()
     {
         if (_isLaunched)
-        {
-            //_enemyCurrentProjectileSpeed = Lerp
             _enemyProjectileRigidBody.velocity = _enemyProjectileDirectionVector2 * Mathf.Lerp(_enemyInitialProjectileSpeed, _enemyMinimalProjectileSpeed, _enemyProjectileSpeedLerp);
-        }
     }
 
     public void OnFireAction()

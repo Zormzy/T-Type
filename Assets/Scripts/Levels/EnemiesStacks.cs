@@ -15,32 +15,32 @@ public class EnemiesStacks : MonoBehaviour
 
     private void Awake()
     {
-        EnemiesProjectilesStackVariablesInitialization();
-        EnemiesProjectilesStackInitialization();
+        EnemiesStackVariablesInitialization();
+        EnemiesStackInitialization();
     }
 
-    private void EnemiesProjectilesStackInitialization()
+    private void EnemiesStackInitialization()
     {
         for (int i = 0; i < _enemyNormal1Count; i++)
         {
-            GameObject _projectile = Instantiate(_enemyNormal1Prefab);
-            _projectile.SetActive(false);
-            _projectile.transform.parent = _enemyTransformParent;
-            _projectile.name = _enemyNormal1Name + i.ToString();
-            _enemyNormal1Stack.Push(_projectile);
+            GameObject _enemy = Instantiate(_enemyNormal1Prefab);
+            _enemy.SetActive(false);
+            _enemy.transform.parent = _enemyTransformParent;
+            _enemy.name = _enemyNormal1Name + i.ToString();
+            _enemyNormal1Stack.Push(_enemy);
         }
 
         for (int i = 0; i < _enemyNormal2Count; i++)
         {
-            GameObject _projectile = Instantiate(_enemyNormal2Prefab);
-            _projectile.SetActive(false);
-            _projectile.transform.parent = _enemyTransformParent;
-            _projectile.name = _enemyNormal2Name + i.ToString();
-            _enemyNormal2Stack.Push(_projectile);
+            GameObject _enemy = Instantiate(_enemyNormal2Prefab);
+            _enemy.SetActive(false);
+            _enemy.transform.parent = _enemyTransformParent;
+            _enemy.name = _enemyNormal2Name + i.ToString();
+            _enemyNormal2Stack.Push(_enemy);
         }
     }
 
-    private void EnemiesProjectilesStackVariablesInitialization()
+    private void EnemiesStackVariablesInitialization()
     {
         _enemyTransformParent = this.transform;
         _enemyNormal1Stack = new Stack<GameObject>();

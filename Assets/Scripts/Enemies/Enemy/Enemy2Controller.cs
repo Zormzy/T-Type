@@ -10,6 +10,7 @@ public class Enemy2Controller : MonoBehaviour
     [Header("Projectiles")]
     private List<Quaternion> _enemyProjectileDirectionQuaternion;
     private EnemiesProjectilesStack _enemyProjectilesStack;
+    private EnemiesStacks _enemyStacks;
     private GameObject _enemyProjectileToLaunch;
     public int _enemyProjectilesperAttackCount;
 
@@ -59,7 +60,7 @@ public class Enemy2Controller : MonoBehaviour
     {
         _enemyRigidBody.velocity = Vector2.zero;
         gameObject.SetActive(false);
-        _enemyProjectilesStack._enemyProjectilesStack.Push(gameObject);
+        _enemyStacks._enemyNormal2Stack.Push(gameObject);
     }
 
     private void EnemyControllerInitialization()
@@ -73,6 +74,7 @@ public class Enemy2Controller : MonoBehaviour
         }
 
         _enemyProjectilesStack = GameObject.Find("EnemiesProjectiles").GetComponent<EnemiesProjectilesStack>();
+        _enemyStacks = GameObject.Find("Enemies").GetComponent<EnemiesStacks>();
         _enemyProjectileToLaunch = null;
         _enemyProjectileSpawnTimer = 1.5f;
         _enemyProjectileSpawnTimerCounter = 0f;

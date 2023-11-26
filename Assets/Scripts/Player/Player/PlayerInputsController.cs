@@ -5,6 +5,7 @@ public class PlayerInputsController : MonoBehaviour
 {
     [Header("Components")]
     [SerializeField] private Rigidbody2D _playerRigidBody;
+    private PauseController _pausedController;
     private Camera _camera;
 
     [Header("Movement")]
@@ -39,9 +40,16 @@ public class PlayerInputsController : MonoBehaviour
             _playerRigidBody.velocity = Vector2.zero;
     }
 
+    public void OnPlayerPause(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+            _pausedController.PauseGame(false, false);
+    }
+
     private void PlayerInputsControllerInitialize()
     {
         _camera = Camera.main;
+        _pausedController = GameObject.Find("UIManager").GetComponent<PauseController>();
         _screenBounds = _camera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, _camera.transform.position.z));
         _playerWidth = transform.GetComponent<SpriteRenderer>().sprite.bounds.min.x / 2;
         _playerHeight = transform.GetComponent<SpriteRenderer>().sprite.bounds.min.y / 2;
