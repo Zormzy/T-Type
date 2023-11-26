@@ -52,7 +52,7 @@ public class VictoryController : MonoBehaviour
 
     private void VictoryControllerInitialization()
     {
-        _victoryTimer = 15f;
+        _victoryTimer = 150f;
         _victoryTimerCounter = 0f;
         _victoryControlStatus = false;
     }
