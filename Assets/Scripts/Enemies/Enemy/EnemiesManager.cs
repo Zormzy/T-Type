@@ -43,18 +43,31 @@ public class EnemiesManager : MonoBehaviour
     public void OnHit(int damagePoints)
     {
         _hitPoints -= damagePoints;
+
+        if (_hitPoints <= 0)
+        {
+            _scoreUI.AddScoreMultipler();
+            switch (_enemyControllerNumber)
+            {
+                case 1:
+                    _enemy1Controller.OnOutOfBoundAndPlayerCollision();
+                    break;
+                case 2:
+                    _enemy2Controller.OnOutOfBoundAndPlayerCollision();
+                    break;
+                default:
+                    break;
+            }
+            _enemyIsAlive = false;
+        }
     }
 
     public void EnemyReset()
     {
         _enemyTransform.position = _enemySpawnPosition.position;
+        if (_enemyControllerNumber == 1)
+            _enemyTransform.rotation = Quaternion.Euler(0, 0, 45);
         _hitPoints = _maxHitPoints;
-    }
-
-    public void OnPlayerProjectileCollision()
-    {
-        _enemyRigidBody.velocity = Vector2.zero;
-        gameObject.SetActive(false);
     }
 
     private void EnemyManagerInitialization()
@@ -86,24 +99,6 @@ public class EnemiesManager : MonoBehaviour
         _collisionTag = collision.gameObject.tag;
 
         if (_collisionTag == _playerProjectileCollisionTag)
-        {
             OnHit(collision.gameObject.GetComponent<PlayerProjectileManager>()._damage);
-            if (_hitPoints <= 0)
-            {
-                _scoreUI.AddScoreMultipler();
-                switch (_enemyControllerNumber)
-                {
-                    case 1:
-                        _enemy1Controller.OnOutOfBoundAndPlayerCollision();
-                        break;
-                    case 2:
-                        _enemy2Controller.OnOutOfBoundAndPlayerCollision();
-                        break;
-                    default:
-                        break;
-                }
-                _enemyIsAlive = false;
-            }
-        }
     }
 }
