@@ -31,6 +31,11 @@ public class PlayerInputsController : MonoBehaviour
 
     public void OnPlayerMovement(InputAction.CallbackContext context)
     {
+        if (context.control.device is Gamepad)
+            Cursor.visible = false;
+        else
+            Cursor.visible = true;
+
         if (context.performed)
         {
             _playerDirectionVector2 = context.ReadValue<Vector2>();
@@ -42,6 +47,11 @@ public class PlayerInputsController : MonoBehaviour
 
     public void OnPlayerPause(InputAction.CallbackContext context)
     {
+        if (context.control.device is Gamepad)
+            Cursor.visible = false;
+        else
+            Cursor.visible = true;
+
         if (context.performed)
             _pausedController.PauseGame(false, false);
     }

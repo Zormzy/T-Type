@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class VictoryController : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class VictoryController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _victoryFinalScoreText;
     [SerializeField] private PauseController _pauseController;
     [SerializeField] private EnemiesGeneration _enemiesGeneration;
+    [SerializeField] private GameObject _victoryMainMenuBtn;
     [SerializeField] private ScoreUI _scoreUI;
 
     [Header("Varibales")]
@@ -47,6 +49,7 @@ public class VictoryController : MonoBehaviour
         _victoryScoreText.text = _scoreUI.GetScore();
         _victoryFinalScoreText.text = _scoreUI.GetFinalScore();
         _victoryCanvas.SetActive(true);
+        EventSystem.current.SetSelectedGameObject(_victoryMainMenuBtn);
         _victoryControlStatus = true;
     }
 

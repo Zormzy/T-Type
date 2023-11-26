@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 public class MainMenuController : MonoBehaviour
@@ -8,6 +9,7 @@ public class MainMenuController : MonoBehaviour
     [SerializeField] private GameObject _playBtn;
     [SerializeField] private GameObject _creditsBtn;
     [SerializeField] private GameObject _quitBtn;
+    [SerializeField] private GameObject _returnBtn;
 
     public void OnPlayBtn()
     {
@@ -20,6 +22,7 @@ public class MainMenuController : MonoBehaviour
         _creditsBtn.SetActive(false);
         _quitBtn.SetActive(false);
         _creditsCanvas.SetActive(true);
+        EventSystem.current.SetSelectedGameObject(_returnBtn);
     }
 
     public void OnReturnBtn()
@@ -28,6 +31,7 @@ public class MainMenuController : MonoBehaviour
         _creditsBtn.SetActive(true);
         _quitBtn.SetActive(true);
         _creditsCanvas.SetActive(false);
+        EventSystem.current.SetSelectedGameObject(_playBtn);
     }
 
     public void OnQuitBtn()
