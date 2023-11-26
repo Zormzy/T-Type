@@ -1,9 +1,11 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class PauseController : MonoBehaviour
 {
     [Header("Components")]
     [SerializeField] private GameObject _pauseCanvas;
+    [SerializeField] private GameObject _pauseMainMenuBtn;
     [SerializeField] private ScoreUI _scoreUI;
 
     [Header("Varibales")]
@@ -19,6 +21,7 @@ public class PauseController : MonoBehaviour
         if (!_victoryDone)
         {
             _pauseCanvas.SetActive(true);
+            EventSystem.current.SetSelectedGameObject(_pauseMainMenuBtn);
             Time.timeScale = 0.0f;
         }
         else if (_victoryDone && _victoryStatus)
