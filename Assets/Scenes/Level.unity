@@ -2670,6 +2670,8 @@ MonoBehaviour:
   _pauseController: {fileID: 1550161246}
   _enemiesGeneration: {fileID: 1483005164}
   _victoryMainMenuBtn: {fileID: 1036272575}
+  _victoryTimerTxtGO: {fileID: 1093729517}
+  _scoreTxtGO: {fileID: 1048110709}
   _scoreUI: {fileID: 1550161244}
 --- !u!1 &1603370459
 GameObject:
