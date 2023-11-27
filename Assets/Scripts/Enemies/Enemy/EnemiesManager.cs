@@ -65,8 +65,6 @@ public class EnemiesManager : MonoBehaviour
     public void EnemyReset()
     {
         _enemyTransform.position = _enemySpawnPosition.position;
-        if (_enemyControllerNumber == 1)
-            _enemyTransform.rotation = Quaternion.Euler(0, 0, 45);
         _hitPoints = _maxHitPoints;
     }
 

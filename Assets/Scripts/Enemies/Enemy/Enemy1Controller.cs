@@ -60,7 +60,6 @@ public class Enemy1Controller : MonoBehaviour
     {
         _enemyRigidBody.velocity = Vector2.zero;
         gameObject.SetActive(false);
-        gameObject.transform.rotation = Quaternion.Euler(0, 0, 45);
         _enemyStacks._enemyNormal1Stack.Push(gameObject);
     }
 

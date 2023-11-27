@@ -3,8 +3,6 @@ using UnityEngine;
 public class EnemiesGeneration : MonoBehaviour
 {
     [Header("Components")]
-    [SerializeField] private GameObject _enemyPrefab;
-    [SerializeField] private Transform _enemyTransformParent;
     private EnemiesStacks _enemyStacks;
     private GameObject _enemyToLaunch;
 
