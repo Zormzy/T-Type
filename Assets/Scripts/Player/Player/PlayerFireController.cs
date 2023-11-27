@@ -53,7 +53,7 @@ public class PlayerFireController : MonoBehaviour
         _asPlayerFired = true;
     }
 
-    private void PlayerProjectilesListInitialization()
+    private void PlayerProjectilesStackInitialization()
     {
         for (int i = 0; i < _playerProjectileCount; i++)
         {
@@ -74,7 +74,7 @@ public class PlayerFireController : MonoBehaviour
         _playerProjectileCount = 20;
         _playerProjectileStack = new Stack<GameObject>();
         _playerProjectileToLaunch = null;
-        PlayerProjectilesListInitialization();
+        PlayerProjectilesStackInitialization();
         _asPlayerFired = false;
         _fireTimer = 0.2f;
         _fireTimerCounter = 0f;

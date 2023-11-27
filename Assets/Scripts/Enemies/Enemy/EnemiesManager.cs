@@ -21,8 +21,10 @@ public class EnemiesManager : MonoBehaviour
 
     [Header("Movement")]
     public Vector2 _enemyMovementDirection;
+    private Quaternion _enemyRotation;
     public float _movementTimer;
     public float _movementSpeed;
+    private float _enemyRotationAngle;
 
     private void Awake()
     {
@@ -37,6 +39,8 @@ public class EnemiesManager : MonoBehaviour
     private void EnemyMovement()
     {
         _enemyMovementDirection.Set(_enemySpawnPosition.position.x + _enemyAnimationCurve.Evaluate(Time.time - _movementTimer), _enemyTransform.position.y - _movementSpeed * Time.deltaTime);
+        _enemyRotationAngle = Mathf.Atan2(_enemyMovementDirection.y, _enemyMovementDirection.x) * Mathf.Rad2Deg;
+        _enemyTransform.rotation = Quaternion.Euler(0f, 0f, (_enemyRotationAngle - 90f));
         _enemyTransform.position = _enemyMovementDirection;
     }
 
@@ -90,6 +94,7 @@ public class EnemiesManager : MonoBehaviour
         _maxHitPoints = 10;
         _hitPoints = _maxHitPoints;
         _enemyMovementDirection = Vector2.down;
+        _enemyRotation = Quaternion.identity;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
