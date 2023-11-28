@@ -69,6 +69,6 @@ public class PlayerInputsController : MonoBehaviour
         _playerWidth = transform.GetComponent<SpriteRenderer>().sprite.bounds.min.x / 15;
         _playerHeight = transform.GetComponent<SpriteRenderer>().sprite.bounds.min.y / 15;
         _playerDirectionVector2 = Vector2.zero;
-        _playerSpeed = 7.5f;
+        _playerSpeed = 5f;
     }
 }

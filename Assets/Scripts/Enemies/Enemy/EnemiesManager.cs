@@ -20,11 +20,14 @@ public class EnemiesManager : MonoBehaviour
     private int _enemyControllerNumber;
 
     [Header("Movement")]
-    public Vector2 _enemyMovementDirection;
-    private Quaternion _enemyRotation;
+    public Vector2 _enemyMovementPosition;
+    private Vector2 _oldPosition;
+    private Vector2 _direction;
+    private Vector3 _cross;
     public float _movementTimer;
     public float _movementSpeed;
     private float _enemyRotationAngle;
+
 
     private void Awake()
     {
@@ -38,10 +41,14 @@ public class EnemiesManager : MonoBehaviour
 
     private void EnemyMovement()
     {
-        _enemyMovementDirection.Set(_enemySpawnPosition.position.x + _enemyAnimationCurve.Evaluate(Time.time - _movementTimer), _enemyTransform.position.y - _movementSpeed * Time.deltaTime);
-        _enemyRotationAngle = Mathf.Atan2(_enemyMovementDirection.y, _enemyMovementDirection.x) * Mathf.Rad2Deg;
-        _enemyTransform.rotation = Quaternion.Euler(0f, 0f, (_enemyRotationAngle - 90f));
-        _enemyTransform.position = _enemyMovementDirection;
+        Vector2 oldPosition = _enemyMovementPosition;
+        _enemyMovementPosition.Set(_enemySpawnPosition.position.x + _enemyAnimationCurve.Evaluate(Time.time - _movementTimer), _enemyTransform.position.y - _movementSpeed * Time.deltaTime);
+        _enemyTransform.position = _enemyMovementPosition;
+        _direction = (_enemyMovementPosition - _oldPosition).normalized;
+        _enemyRotationAngle = Mathf.Acos(Vector2.Dot(Vector2.up, _direction)) * Mathf.Rad2Deg + 180;
+        _cross = Vector3.Cross(_direction, Vector3.forward);
+        _enemyTransform.rotation = Quaternion.Euler(0f, 0f, (_enemyRotationAngle * Mathf.Sign(_cross.y)));
+        _oldPosition = oldPosition;
     }
 
     public void OnHit(int damagePoints)
@@ -93,8 +100,10 @@ public class EnemiesManager : MonoBehaviour
         _movementSpeed = 0.2f;
         _maxHitPoints = 10;
         _hitPoints = _maxHitPoints;
-        _enemyMovementDirection = Vector2.down;
-        _enemyRotation = Quaternion.identity;
+        _enemyMovementPosition = Vector2.down;
+        _oldPosition = Vector2.zero;
+        _direction = Vector2.zero;
+        _cross = Vector3.zero;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
