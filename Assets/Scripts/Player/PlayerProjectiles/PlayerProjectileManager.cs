@@ -28,12 +28,6 @@ public class PlayerProjectileManager : MonoBehaviour
         _explosion.GetComponent<Animator>().Play("ExplosionFXAnimation");
     }
 
-    //public void RestackExplosionGO()
-    //{
-    //    _explosion.SetActive(false);
-    //    _fxStacks._explosionFXStack.Push(_explosion);
-    //}
-
     private void PlayerManagerInitialization()
     {
         _enemyN1CollisionTag = "EnemyN1";

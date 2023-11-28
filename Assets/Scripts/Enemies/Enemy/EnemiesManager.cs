@@ -10,6 +10,8 @@ public class EnemiesManager : MonoBehaviour
     [SerializeField] private AnimationCurve _enemyAnimationCurve;
     private ScoreUI _scoreUI;
     private Transform _enemySpawnPosition;
+    private FXStacks _fxStacks;
+    private GameObject _explosion;
 
     [Header("Variables")]
     private string _playerProjectileCollisionTag;
@@ -69,8 +71,17 @@ public class EnemiesManager : MonoBehaviour
                 default:
                     break;
             }
+            OnEnemyDeath();
             _enemyIsAlive = false;
         }
+    }
+
+    private void OnEnemyDeath()
+    {
+        _explosion = _fxStacks._enemyDeathFXStack.Pop();
+        _explosion.transform.position = transform.position;
+        _explosion.SetActive(true);
+        _explosion.GetComponent<Animator>().Play("ExplosionFXAnimation");
     }
 
     public void EnemyReset()
@@ -92,6 +103,8 @@ public class EnemiesManager : MonoBehaviour
             _enemyControllerNumber = 2;
         }
 
+        _explosion = null;
+        _fxStacks = GameObject.Find("FX").GetComponent<FXStacks>();
         _enemySpawnPosition = GameObject.Find("EnemiesSpawnPoint").transform;
         _scoreUI = GameObject.Find("UIManager").GetComponent<ScoreUI>();
         _playerProjectileCollisionTag = "PlayerProjectile";
