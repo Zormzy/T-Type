@@ -15,11 +15,11 @@ public class BackgroundParalax : MonoBehaviour
 
     private void Update()
     {
-        _backgroundSpriteRenderer.material.mainTextureOffset -= new Vector2(0f, _backgroundSpeed * Time.deltaTime);
+        _backgroundSpriteRenderer.material.mainTextureOffset -= new Vector2(0f, _backgroundSpeed * Time.unscaledDeltaTime);
     }
 
     private void BackgroundParallaxInitialization()
     {
-        _backgroundSpeed = -0.1f;
+        //_backgroundSpeed = -0.1f;
     }
 }
