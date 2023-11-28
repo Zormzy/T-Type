@@ -6,6 +6,8 @@ public class Enemy2Controller : MonoBehaviour
     [Header("Components")]
     [SerializeField] Rigidbody2D _enemyRigidBody;
     [SerializeField] Transform _enemyTransform;
+    [SerializeField] private AudioSource _audioSource;
+    [SerializeField] private AudioClip _enemyFireAudioClip;
 
     [Header("Projectiles")]
     private List<Quaternion> _enemyProjectileDirectionQuaternion;
@@ -47,6 +49,8 @@ public class Enemy2Controller : MonoBehaviour
         {
             _enemyProjectileToLaunch = _enemyProjectilesStack._enemyProjectilesStack.Pop();
             _enemyProjectileToLaunch.SetActive(true);
+            _audioSource.clip = _enemyFireAudioClip;
+            _audioSource.Play();
             _enemyProjectileToLaunch.transform.position = _enemyTransform.position;
             _enemyProjectileToLaunch.transform.rotation = _enemyProjectileDirectionQuaternion[i];
 

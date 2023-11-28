@@ -8,6 +8,9 @@ public class EnemiesManager : MonoBehaviour
     [SerializeField] private Enemy1Controller _enemy1Controller;
     [SerializeField] private Enemy2Controller _enemy2Controller;
     [SerializeField] private AnimationCurve _enemyAnimationCurve;
+    [SerializeField] private AudioSource _audioSource;
+    [SerializeField] private AudioClip _enemyHitAudioClip;
+    [SerializeField] private AudioClip _enemyDeadAudioClip;
     private ScoreUI _scoreUI;
     private Transform _enemySpawnPosition;
     private FXStacks _fxStacks;
@@ -74,6 +77,12 @@ public class EnemiesManager : MonoBehaviour
             OnEnemyDeath();
             _enemyIsAlive = false;
         }
+        else
+        {
+            if (_audioSource.clip != _enemyHitAudioClip)
+                _audioSource.clip = _enemyHitAudioClip;
+            _audioSource.Play();
+        }
     }
 
     private void OnEnemyDeath()
@@ -81,6 +90,8 @@ public class EnemiesManager : MonoBehaviour
         _explosion = _fxStacks._enemyDeathFXStack.Pop();
         _explosion.transform.position = transform.position;
         _explosion.SetActive(true);
+        _audioSource.clip = _enemyDeadAudioClip;
+        _audioSource.Play();
         _explosion.GetComponent<Animator>().Play("ExplosionFXAnimation");
     }
 

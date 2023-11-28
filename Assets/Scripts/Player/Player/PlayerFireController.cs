@@ -5,6 +5,8 @@ public class PlayerFireController : MonoBehaviour
 {
     [Header("Components")]
     [SerializeField] private GameObject _playerProjectilePrefab;
+    [SerializeField] private AudioSource _audioSource;
+    [SerializeField] private AudioClip _playerFireSFX;
     private Transform _playerTransform;
 
     [Header("FireRate")]
@@ -43,6 +45,8 @@ public class PlayerFireController : MonoBehaviour
 
     private void PlayerFireGeneration()
     {
+        if (_audioSource.clip == _playerFireSFX)
+            _audioSource.Play();
         _playerProjectileToLaunch = _playerProjectileStack.Pop();
         _playerProjectileToLaunch.SetActive(true);
         _playerProjectileToLaunch.transform.position = _playerTransform.position;
