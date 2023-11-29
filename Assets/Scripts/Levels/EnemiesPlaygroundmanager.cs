@@ -15,11 +15,9 @@ public class EnemiesPlaygroundmanager : MonoBehaviour
             {
                 case "EnemyN1":
                     collision.gameObject.GetComponent<Enemy1Controller>().OnOutOfBoundAndPlayerCollision();
-                    Debug.Log("EnemyN 1 out");
                     break;
                 case "EnemyN2":
                     collision.gameObject.GetComponent<Enemy2Controller>().OnOutOfBoundAndPlayerCollision();
-                    Debug.Log("EnemyN 2 out");
                     break;
                 case "EnemyProjectile":
                     collision.gameObject.GetComponent<EnemyProjectileController>().OnOutOfBoundAndPlayerCollision();
