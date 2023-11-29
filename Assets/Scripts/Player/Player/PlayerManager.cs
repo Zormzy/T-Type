@@ -1,11 +1,10 @@
-using System.Collections;
 using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
     [Header("Components")]
     [SerializeField] private Rigidbody2D _playerRigidBody;
-    [SerializeField] private AudioSource _audioSource;
+    [SerializeField] private AudioSource _playerAudioSource;
     [SerializeField] private AudioClip _playerDeathSFX;
     private ScoreUI _scoreUI;
     private PlayerController _playerController;
@@ -48,8 +47,8 @@ public class PlayerManager : MonoBehaviour
 
         if (_collisionTag == _enemyN1CollisionTag || _collisionTag == _enemyN2CollisionTag || _collisionTag == _enemyProjectileCollisionTag)
         {
-            _audioSource.volume = 0.5f;
-            _audioSource.PlayOneShot(_playerDeathSFX);
+            _playerAudioSource.volume = 0.5f;
+            _playerAudioSource.PlayOneShot(_playerDeathSFX);
             Invoke(nameof(OnPlayerDeath), _playerDeathSFX.length / 2);
         }
     }

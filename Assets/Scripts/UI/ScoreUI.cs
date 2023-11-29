@@ -39,7 +39,10 @@ public class ScoreUI : MonoBehaviour
 
     public string GetScore()
     {
-        _scoreVictoryText = "Score\n" + (int)_score + " x " + _scoreMultiplier;
+        if (_scoreMultiplier == 0)
+            _scoreVictoryText = "Score\n" + (int)_score;
+        else
+            _scoreVictoryText = "Score\n" + (int)_score + " x " + _scoreMultiplier;
         return _scoreVictoryText;
     }
 

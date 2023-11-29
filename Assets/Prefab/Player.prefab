@@ -273,7 +273,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerRigidBody: {fileID: 1317510606882069250}
-  _audioSource: {fileID: 3991071835449599209}
+  _playerAudioSource: {fileID: 3991071835449599209}
   _playerDeathSFX: {fileID: 8300000, guid: f98812be3adeeb047a8301a4251953f1, type: 3}
 --- !u!114 &7936927912938172712
 MonoBehaviour:
