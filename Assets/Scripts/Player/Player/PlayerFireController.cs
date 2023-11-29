@@ -18,7 +18,6 @@ public class PlayerFireController : MonoBehaviour
     private GameObject _playerProjectileToLaunch;
     private Transform _playerProjectilesTransformParent;
     private string _playerProjectileName;
-    private bool _asPlayerFired;
     public int _playerProjectileCount;
 
     private void Awake()
@@ -37,7 +36,6 @@ public class PlayerFireController : MonoBehaviour
         {
             PlayerFireGeneration();
             _fireTimerCounter = 0f;
-            _asPlayerFired = false;
         }
         else
             _fireTimerCounter += Time.deltaTime;
@@ -52,8 +50,6 @@ public class PlayerFireController : MonoBehaviour
 
         if (_playerProjectileToLaunch.GetComponent<PlayerProjectileController>() != null)
             _playerProjectileToLaunch.GetComponent<PlayerProjectileController>().OnFireAction();
-
-        _asPlayerFired = true;
     }
 
     private void PlayerProjectilesStackInitialization()
@@ -79,7 +75,6 @@ public class PlayerFireController : MonoBehaviour
         _playerProjectileStack = new Stack<GameObject>();
         _playerProjectileToLaunch = null;
         PlayerProjectilesStackInitialization();
-        _asPlayerFired = false;
         _fireTimer = 0.2f;
         _fireTimerCounter = 0f;
     }

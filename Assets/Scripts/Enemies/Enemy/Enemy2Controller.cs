@@ -19,7 +19,6 @@ public class Enemy2Controller : MonoBehaviour
     [Header("Enemies spawn timer")]
     public float _enemyProjectileSpawnTimer;
     public float _enemyProjectileSpawnTimerCounter;
-    private bool _enemyProjectileAsSpawn;
 
     private void Awake()
     {
@@ -37,7 +36,6 @@ public class Enemy2Controller : MonoBehaviour
         {
             EnemyProjectileSpawn();
             _enemyProjectileSpawnTimerCounter = 0f;
-            _enemyProjectileAsSpawn = false;
         }
         else
             _enemyProjectileSpawnTimerCounter += Time.deltaTime;
@@ -56,7 +54,6 @@ public class Enemy2Controller : MonoBehaviour
             if (_enemyProjectileToLaunch.GetComponent<EnemyProjectileController>() != null)
                 _enemyProjectileToLaunch.GetComponent<EnemyProjectileController>().OnFireAction();
         }
-        _enemyProjectileAsSpawn = true;
     }
 
     public void OnOutOfBoundAndPlayerCollision()
@@ -82,6 +79,5 @@ public class Enemy2Controller : MonoBehaviour
         _enemyProjectileToLaunch = null;
         _enemyProjectileSpawnTimer = 1.5f;
         _enemyProjectileSpawnTimerCounter = 0f;
-        _enemyProjectileAsSpawn = false;
     }
 }

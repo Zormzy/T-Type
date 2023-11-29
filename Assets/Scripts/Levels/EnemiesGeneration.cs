@@ -64,7 +64,7 @@ public class EnemiesGeneration : MonoBehaviour
     {
         _enemyStacks = GameObject.Find("Enemies").GetComponent<EnemiesStacks>();
         _enemySpawnTimer = 5f;
-        _enemySpawnTimerCounter = 2f;
+        _enemySpawnTimerCounter = 4.5f;
         _playerAsWon = false;
     }
 }

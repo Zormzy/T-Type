@@ -15,7 +15,6 @@ public class PlayerManager : MonoBehaviour
     private string _enemyN2CollisionTag;
     private string _enemyProjectileCollisionTag;
     private string _collisionTag;
-    private bool _playerIsAlive;
 
     private void Awake()
     {
@@ -31,7 +30,6 @@ public class PlayerManager : MonoBehaviour
         _enemyN1CollisionTag = "EnemyN1";
         _enemyN2CollisionTag = "EnemyN2";
         _enemyProjectileCollisionTag = "EnemyProjectile";
-        _playerIsAlive = true;
         _scoreUI._playerIsAlive = true;
     }
 

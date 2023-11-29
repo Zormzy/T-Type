@@ -91,7 +91,6 @@ public class EnemiesManager : MonoBehaviour
         _explosion.transform.position = transform.position;
         _explosion.SetActive(true);
         _audioSource.PlayOneShot(_enemyDeadAudioClip, 1f);
-        _explosion.GetComponent<Animator>().Play("ExplosionFXAnimation");
     }
 
     public void EnemyReset()
@@ -123,7 +122,7 @@ public class EnemiesManager : MonoBehaviour
         _enemyIsAlive = true;
         _enemyIsHit = false;
         _movementTimer = 0f;
-        _movementSpeed = 0.2f;
+        _movementSpeed = 0.5f;
         _maxHitPoints = 10;
         _hitPoints = _maxHitPoints;
         _enemyMovementPosition = Vector2.down;

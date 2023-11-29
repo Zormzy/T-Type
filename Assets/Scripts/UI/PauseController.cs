@@ -13,7 +13,6 @@ public class PauseController : MonoBehaviour
     [SerializeField] private AudioClip _levelMusic;
 
     [Header("Varibales")]
-    private bool _isPaused;
     public float _musicVolume;
     public float _musicFadeOutTime;
     public float _musicFadeInTime;
@@ -62,7 +61,6 @@ public class PauseController : MonoBehaviour
             }
         }
         _scoreUI._gamePaused = true;
-        _isPaused = true;
     }
 
     public void UnPauseGame()
@@ -71,7 +69,6 @@ public class PauseController : MonoBehaviour
         _pauseCanvas.SetActive(false);
         _scoreUI._gamePaused = false;
         Time.timeScale = 1.0f;
-        _isPaused = false;
     }
 
     IEnumerator FadeOut(AudioSource _audioSource, AudioClip _nextAudioClip, float _fadeOutTime)
@@ -102,7 +99,6 @@ public class PauseController : MonoBehaviour
 
     private void PauseControllerInitializaztion()
     {
-        _isPaused = false;
         _musicVolume = 0.12f;
         _musicFadeOutTime = 10f;
         _musicFadeInTime = 10f;
