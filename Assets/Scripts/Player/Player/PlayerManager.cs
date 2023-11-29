@@ -4,8 +4,8 @@ public class PlayerManager : MonoBehaviour
 {
     [Header("Components")]
     [SerializeField] private Rigidbody2D _playerRigidBody;
-    [SerializeField] private AudioSource _playerAudioSource;
     [SerializeField] private AudioClip _playerDeathSFX;
+    private AudioSource _playerAudioSource;
     private ScoreUI _scoreUI;
     private PlayerController _playerController;
     private VictoryController _victoryController;
@@ -24,6 +24,7 @@ public class PlayerManager : MonoBehaviour
 
     private void PlayerManagerInitialization()
     {
+        _playerAudioSource = GameObject.Find("AudioSource").GetComponent<AudioSource>();
         _playerController = GetComponent<PlayerController>();
         _scoreUI = GameObject.Find("UIManager").GetComponent<ScoreUI>();
         _victoryController = GameObject.Find("UIManager").GetComponent<VictoryController>();
@@ -47,8 +48,7 @@ public class PlayerManager : MonoBehaviour
 
         if (_collisionTag == _enemyN1CollisionTag || _collisionTag == _enemyN2CollisionTag || _collisionTag == _enemyProjectileCollisionTag)
         {
-            _playerAudioSource.volume = 0.5f;
-            _playerAudioSource.PlayOneShot(_playerDeathSFX);
+            _playerAudioSource.PlayOneShot(_playerDeathSFX, 1f);
             Invoke(nameof(OnPlayerDeath), _playerDeathSFX.length / 2);
         }
     }

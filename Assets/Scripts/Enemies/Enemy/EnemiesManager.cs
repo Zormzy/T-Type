@@ -8,9 +8,9 @@ public class EnemiesManager : MonoBehaviour
     [SerializeField] private Enemy1Controller _enemy1Controller;
     [SerializeField] private Enemy2Controller _enemy2Controller;
     [SerializeField] private AnimationCurve _enemyAnimationCurve;
-    [SerializeField] private AudioSource _audioSource;
     [SerializeField] private AudioClip _enemyHitAudioClip;
     [SerializeField] private AudioClip _enemyDeadAudioClip;
+    private AudioSource _audioSource;
     private ScoreUI _scoreUI;
     private Transform _enemySpawnPosition;
     private FXStacks _fxStacks;
@@ -20,6 +20,7 @@ public class EnemiesManager : MonoBehaviour
     private string _playerProjectileCollisionTag;
     private string _collisionTag;
     private bool _enemyIsAlive;
+    private bool _enemyIsHit;
     private int _hitPoints;
     private int _maxHitPoints;
     private int _enemyControllerNumber;
@@ -58,6 +59,7 @@ public class EnemiesManager : MonoBehaviour
 
     public void OnHit(int damagePoints)
     {
+        _enemyIsHit = true;
         _hitPoints -= damagePoints;
 
         if (_hitPoints <= 0)
@@ -78,11 +80,9 @@ public class EnemiesManager : MonoBehaviour
             _enemyIsAlive = false;
         }
         else
-        {
-            if (_audioSource.clip != _enemyHitAudioClip)
-                _audioSource.clip = _enemyHitAudioClip;
-            _audioSource.Play();
-        }
+            _audioSource.PlayOneShot(_enemyHitAudioClip, 1f);
+
+        _enemyIsHit = false;
     }
 
     private void OnEnemyDeath()
@@ -90,8 +90,7 @@ public class EnemiesManager : MonoBehaviour
         _explosion = _fxStacks._enemyDeathFXStack.Pop();
         _explosion.transform.position = transform.position;
         _explosion.SetActive(true);
-        _audioSource.clip = _enemyDeadAudioClip;
-        _audioSource.Play();
+        _audioSource.PlayOneShot(_enemyDeadAudioClip, 1f);
         _explosion.GetComponent<Animator>().Play("ExplosionFXAnimation");
     }
 
@@ -99,6 +98,7 @@ public class EnemiesManager : MonoBehaviour
     {
         _enemyTransform.position = _enemySpawnPosition.position;
         _hitPoints = _maxHitPoints;
+        _enemyIsAlive = true;
     }
 
     private void EnemyManagerInitialization()
@@ -115,11 +115,13 @@ public class EnemiesManager : MonoBehaviour
         }
 
         _explosion = null;
+        _audioSource = GameObject.Find("AudioSource").GetComponent<AudioSource>();
         _fxStacks = GameObject.Find("FX").GetComponent<FXStacks>();
         _enemySpawnPosition = GameObject.Find("EnemiesSpawnPoint").transform;
         _scoreUI = GameObject.Find("UIManager").GetComponent<ScoreUI>();
         _playerProjectileCollisionTag = "PlayerProjectile";
         _enemyIsAlive = true;
+        _enemyIsHit = false;
         _movementTimer = 0f;
         _movementSpeed = 0.2f;
         _maxHitPoints = 10;
@@ -134,7 +136,7 @@ public class EnemiesManager : MonoBehaviour
     {
         _collisionTag = collision.gameObject.tag;
 
-        if (_collisionTag == _playerProjectileCollisionTag)
+        if (_collisionTag == _playerProjectileCollisionTag && !_enemyIsHit && _enemyIsAlive)
             OnHit(collision.gameObject.GetComponent<PlayerProjectileManager>()._damage);
     }
 }

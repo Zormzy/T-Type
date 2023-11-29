@@ -6,8 +6,8 @@ public class Enemy2Controller : MonoBehaviour
     [Header("Components")]
     [SerializeField] Rigidbody2D _enemyRigidBody;
     [SerializeField] Transform _enemyTransform;
-    [SerializeField] private AudioSource _audioSource;
     [SerializeField] private AudioClip _enemyFireAudioClip;
+    private AudioSource _audioSource;
 
     [Header("Projectiles")]
     private List<Quaternion> _enemyProjectileDirectionQuaternion;
@@ -45,12 +45,11 @@ public class Enemy2Controller : MonoBehaviour
 
     private void EnemyProjectileSpawn()
     {
+        _audioSource.PlayOneShot(_enemyFireAudioClip);
         for (int i = 0; i < _enemyProjectilesperAttackCount; i++)
         {
             _enemyProjectileToLaunch = _enemyProjectilesStack._enemyProjectilesStack.Pop();
             _enemyProjectileToLaunch.SetActive(true);
-            _audioSource.clip = _enemyFireAudioClip;
-            _audioSource.Play();
             _enemyProjectileToLaunch.transform.position = _enemyTransform.position;
             _enemyProjectileToLaunch.transform.rotation = _enemyProjectileDirectionQuaternion[i];
 
@@ -77,6 +76,7 @@ public class Enemy2Controller : MonoBehaviour
             _enemyProjectileDirectionQuaternion.Add(Quaternion.Euler(0, 0, (360 / _enemyProjectilesperAttackCount) * i));
         }
 
+        _audioSource = GameObject.Find("AudioSource").GetComponent<AudioSource>();
         _enemyProjectilesStack = GameObject.Find("EnemiesProjectiles").GetComponent<EnemiesProjectilesStack>();
         _enemyStacks = GameObject.Find("Enemies").GetComponent<EnemiesStacks>();
         _enemyProjectileToLaunch = null;
