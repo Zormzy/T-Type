@@ -35,6 +35,7 @@ public class Enemy2Controller : MonoBehaviour
         if (_enemyProjectileSpawnTimerCounter >= _enemyProjectileSpawnTimer)
         {
             EnemyProjectileSpawn();
+            Invoke(nameof(EnemyProjectileSpawn), 0.5f);
             _enemyProjectileSpawnTimerCounter = 0f;
         }
         else
@@ -77,7 +78,7 @@ public class Enemy2Controller : MonoBehaviour
         _enemyProjectilesStack = GameObject.Find("EnemiesProjectiles").GetComponent<EnemiesProjectilesStack>();
         _enemyStacks = GameObject.Find("Enemies").GetComponent<EnemiesStacks>();
         _enemyProjectileToLaunch = null;
-        _enemyProjectileSpawnTimer = 1.5f;
+        _enemyProjectileSpawnTimer = 2f;
         _enemyProjectileSpawnTimerCounter = 0f;
     }
 }

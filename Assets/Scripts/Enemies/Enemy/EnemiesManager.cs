@@ -30,6 +30,7 @@ public class EnemiesManager : MonoBehaviour
     private Vector2 _oldPosition;
     private Vector2 _direction;
     private Vector3 _cross;
+    public float _enemyCrossRotation;
     public float _movementTimer;
     public float _movementSpeed;
     private float _enemyRotationAngle;
@@ -53,7 +54,8 @@ public class EnemiesManager : MonoBehaviour
         _direction = (_enemyMovementPosition - _oldPosition).normalized;
         _enemyRotationAngle = Mathf.Acos(Vector2.Dot(Vector2.up, _direction)) * Mathf.Rad2Deg + 180;
         _cross = Vector3.Cross(_direction, Vector3.forward);
-        _enemyTransform.rotation = Quaternion.Euler(0f, 0f, (_enemyRotationAngle * Mathf.Sign(_cross.y)));
+        _enemyCrossRotation = _enemyRotationAngle * Mathf.Sign(_cross.y);
+        _enemyTransform.rotation = Quaternion.Euler(0f, 0f, _enemyCrossRotation);
         _oldPosition = oldPosition;
     }
 

@@ -10,7 +10,7 @@ public class Enemy1Controller : MonoBehaviour
     private AudioSource _audioSource;
 
     [Header("Projectiles")]
-    private List<Quaternion> _enemyProjectileDirectionQuaternion;
+    private Stack<Quaternion> _enemyProjectileDirectionQuaternionStack;
     private EnemiesProjectilesStack _enemyProjectilesStack;
     private EnemiesStacks _enemyStacks;
     private GameObject _enemyProjectileToLaunch;
@@ -19,6 +19,8 @@ public class Enemy1Controller : MonoBehaviour
     [Header("Enemies spawn timer")]
     public float _enemyProjectileSpawnTimer;
     public float _enemyProjectileSpawnTimerCounter;
+
+    public float _enemyCrossRotation;
 
     private void Awake()
     {
@@ -34,6 +36,12 @@ public class Enemy1Controller : MonoBehaviour
     {
         if (_enemyProjectileSpawnTimerCounter >= _enemyProjectileSpawnTimer)
         {
+            _enemyCrossRotation = this.GetComponent<EnemiesManager>()._enemyCrossRotation;
+            for (int i = 0; i < _enemyProjectilesperAttackCount; i++)
+            {
+                _enemyProjectileDirectionQuaternionStack.Push(Quaternion.Euler(0f, 0f, 145f + _enemyCrossRotation + (90f / _enemyProjectilesperAttackCount) * i));
+            }
+
             EnemyProjectileSpawn();
             _enemyProjectileSpawnTimerCounter = 0f;
         }
@@ -49,7 +57,7 @@ public class Enemy1Controller : MonoBehaviour
             _enemyProjectileToLaunch = _enemyProjectilesStack._enemyProjectilesStack.Pop();
             _enemyProjectileToLaunch.SetActive(true);
             _enemyProjectileToLaunch.transform.position = _enemyTransform.position;
-            _enemyProjectileToLaunch.transform.rotation = _enemyProjectileDirectionQuaternion[i];
+            _enemyProjectileToLaunch.transform.rotation = _enemyProjectileDirectionQuaternionStack.Pop();
 
             if (_enemyProjectileToLaunch.GetComponent<EnemyProjectileController>() != null)
                 _enemyProjectileToLaunch.GetComponent<EnemyProjectileController>().OnFireAction();
@@ -66,18 +74,12 @@ public class Enemy1Controller : MonoBehaviour
     private void EnemyControllerInitialization()
     {
         _enemyProjectilesperAttackCount = 5;
-        _enemyProjectileDirectionQuaternion = new List<Quaternion>();
-
-        for (int i = 0; i < _enemyProjectilesperAttackCount; i++)
-        {
-            _enemyProjectileDirectionQuaternion.Add(Quaternion.Euler(0, 0, 145 + ((90 / _enemyProjectilesperAttackCount) * i)));
-        }
-
+        _enemyProjectileDirectionQuaternionStack = new Stack<Quaternion>();
         _audioSource = GameObject.Find("AudioSource").GetComponent<AudioSource>();
         _enemyProjectilesStack = GameObject.Find("EnemiesProjectiles").GetComponent<EnemiesProjectilesStack>();
         _enemyStacks = GameObject.Find("Enemies").GetComponent<EnemiesStacks>();
         _enemyProjectileToLaunch = null;
-        _enemyProjectileSpawnTimer = 1.5f;
+        _enemyProjectileSpawnTimer = 1f;
         _enemyProjectileSpawnTimerCounter = 0f;
     }
 }
