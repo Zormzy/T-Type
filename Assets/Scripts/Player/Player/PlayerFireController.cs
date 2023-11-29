@@ -45,8 +45,9 @@ public class PlayerFireController : MonoBehaviour
     {
         _audioSource.PlayOneShot(_playerFireSFX, 1f);
         _playerProjectileToLaunch = _playerProjectileStack.Pop();
-        _playerProjectileToLaunch.SetActive(true);
         _playerProjectileToLaunch.transform.position = _playerTransform.position;
+        _playerProjectileToLaunch.transform.position.Set(_playerProjectileToLaunch.transform.position.x, _playerProjectileToLaunch.transform.position.y + 0.5f, _playerProjectileToLaunch.transform.position.z);
+        _playerProjectileToLaunch.SetActive(true);
 
         if (_playerProjectileToLaunch.GetComponent<PlayerProjectileController>() != null)
             _playerProjectileToLaunch.GetComponent<PlayerProjectileController>().OnFireAction();

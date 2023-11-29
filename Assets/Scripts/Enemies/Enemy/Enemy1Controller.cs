@@ -51,7 +51,7 @@ public class Enemy1Controller : MonoBehaviour
 
     private void EnemyProjectileSpawn()
     {
-        _audioSource.PlayOneShot(_enemyFireAudioClip, 1f);
+        _audioSource.PlayOneShot(_enemyFireAudioClip, 0.5f);
         for (int i = 0; i < _enemyProjectilesperAttackCount; i++)
         {
             _enemyProjectileToLaunch = _enemyProjectilesStack._enemyProjectilesStack.Pop();
