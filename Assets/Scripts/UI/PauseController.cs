@@ -11,6 +11,7 @@ public class PauseController : MonoBehaviour
     [SerializeField] private AudioSource _levelAudioSource;
     [SerializeField] private AudioClip _levelMenuMusic;
     [SerializeField] private AudioClip _levelMusic;
+    private Animator _playerAnimator;
 
     [Header("Varibales")]
     public float _musicVolume;
@@ -31,6 +32,7 @@ public class PauseController : MonoBehaviour
         {
             _pauseCanvas.SetActive(true);
             EventSystem.current.SetSelectedGameObject(_pauseMainMenuBtn);
+            _playerAnimator.enabled = false;
             Time.timeScale = 0.0f;
         }
         else if (_victoryDone && _victoryStatus)
@@ -68,6 +70,7 @@ public class PauseController : MonoBehaviour
         StartCoroutine(FadeOut(_levelAudioSource, _levelMusic, _musicFadeOutTime));
         _pauseCanvas.SetActive(false);
         _scoreUI._gamePaused = false;
+        _playerAnimator.enabled = true;
         Time.timeScale = 1.0f;
     }
 
@@ -102,5 +105,6 @@ public class PauseController : MonoBehaviour
         _musicVolume = 0.12f;
         _musicFadeOutTime = 10f;
         _musicFadeInTime = 10f;
+        _playerAnimator = GameObject.Find("Player").GetComponent<Animator>();
     }
 }
