@@ -5091,6 +5091,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerRigidbody: {fileID: 1317510606882069250}
+  _playerHitFlashMaterial: {fileID: 2100000, guid: 22f7029cd901c8840bd82d2cb9997afb, type: 2}
+  _playerSpriteRenderer: {fileID: 6509990307603697076}
 --- !u!114 &4575232481483202614
 MonoBehaviour:
   m_ObjectHideFlags: 0
