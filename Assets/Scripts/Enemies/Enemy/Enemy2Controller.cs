@@ -6,9 +6,11 @@ public class Enemy2Controller : MonoBehaviour
     [Header("Components")]
     [SerializeField] Rigidbody2D _enemyRigidBody;
     [SerializeField] Transform _enemyTransform;
+    [SerializeField] private AudioClip _enemyFireAudioClip;
+    private AudioSource _audioSource;
 
     [Header("Projectiles")]
-    private List<Quaternion> _enemyProjectileDirectionQuaternion;
+    private List<Quaternion> _enemyProjectileDirectionQuaternionList;
     private EnemiesProjectilesStack _enemyProjectilesStack;
     private EnemiesStacks _enemyStacks;
     private GameObject _enemyProjectileToLaunch;
@@ -17,7 +19,6 @@ public class Enemy2Controller : MonoBehaviour
     [Header("Enemies spawn timer")]
     public float _enemyProjectileSpawnTimer;
     public float _enemyProjectileSpawnTimerCounter;
-    private bool _enemyProjectileAsSpawn;
 
     private void Awake()
     {
@@ -26,34 +27,33 @@ public class Enemy2Controller : MonoBehaviour
 
     private void Update()
     {
-        EnemiyProjectilesSpawnTimer();
+        EnemyProjectilesSpawnTimer();
     }
 
-    public void EnemiyProjectilesSpawnTimer()
+    public void EnemyProjectilesSpawnTimer()
     {
         if (_enemyProjectileSpawnTimerCounter >= _enemyProjectileSpawnTimer)
         {
-            EnemyProjectileSpawn();
+            EnemyProjectileSpawnPattern1();
             _enemyProjectileSpawnTimerCounter = 0f;
-            _enemyProjectileAsSpawn = false;
         }
         else
             _enemyProjectileSpawnTimerCounter += Time.deltaTime;
     }
 
-    private void EnemyProjectileSpawn()
+    private void EnemyProjectileSpawnPattern1()
     {
+        _audioSource.PlayOneShot(_enemyFireAudioClip, 0.25f);
         for (int i = 0; i < _enemyProjectilesperAttackCount; i++)
         {
             _enemyProjectileToLaunch = _enemyProjectilesStack._enemyProjectilesStack.Pop();
             _enemyProjectileToLaunch.SetActive(true);
             _enemyProjectileToLaunch.transform.position = _enemyTransform.position;
-            _enemyProjectileToLaunch.transform.rotation = _enemyProjectileDirectionQuaternion[i];
+            _enemyProjectileToLaunch.transform.rotation = _enemyProjectileDirectionQuaternionList[i];
 
             if (_enemyProjectileToLaunch.GetComponent<EnemyProjectileController>() != null)
                 _enemyProjectileToLaunch.GetComponent<EnemyProjectileController>().OnFireAction();
         }
-        _enemyProjectileAsSpawn = true;
     }
 
     public void OnOutOfBoundAndPlayerCollision()
@@ -65,19 +65,19 @@ public class Enemy2Controller : MonoBehaviour
 
     private void EnemyControllerInitialization()
     {
-        _enemyProjectilesperAttackCount = 8;
-        _enemyProjectileDirectionQuaternion = new List<Quaternion>();
+        _enemyProjectilesperAttackCount = 12;
+        _enemyProjectileDirectionQuaternionList = new List<Quaternion>();
 
         for (int i = 0; i < _enemyProjectilesperAttackCount; i++)
         {
-            _enemyProjectileDirectionQuaternion.Add(Quaternion.Euler(0, 0, (360 / _enemyProjectilesperAttackCount) * i));
+            _enemyProjectileDirectionQuaternionList.Add(Quaternion.Euler(0, 0, (360 / _enemyProjectilesperAttackCount) * i));
         }
 
+        _audioSource = GameObject.Find("AudioSource").GetComponent<AudioSource>();
         _enemyProjectilesStack = GameObject.Find("EnemiesProjectiles").GetComponent<EnemiesProjectilesStack>();
         _enemyStacks = GameObject.Find("Enemies").GetComponent<EnemiesStacks>();
         _enemyProjectileToLaunch = null;
-        _enemyProjectileSpawnTimer = 1.5f;
+        _enemyProjectileSpawnTimer = 3f;
         _enemyProjectileSpawnTimerCounter = 0f;
-        _enemyProjectileAsSpawn = false;
     }
 }

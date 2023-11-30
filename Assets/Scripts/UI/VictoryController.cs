@@ -13,6 +13,8 @@ public class VictoryController : MonoBehaviour
     [SerializeField] private PauseController _pauseController;
     [SerializeField] private EnemiesGeneration _enemiesGeneration;
     [SerializeField] private GameObject _victoryMainMenuBtn;
+    [SerializeField] private GameObject _victoryTimerTxtGO;
+    [SerializeField] private GameObject _scoreTxtGO;
     [SerializeField] private ScoreUI _scoreUI;
 
     [Header("Varibales")]
@@ -33,9 +35,11 @@ public class VictoryController : MonoBehaviour
         if (_victoryTimerCounter >= _victoryTimer && !_victoryControlStatus)
             OnPlayerVictory(true);
         else
+        {
+            VictoryTimerDisplay();
             _victoryTimerCounter += Time.deltaTime;
+        }
 
-        VictoryTimerDisplay();
     }
 
     public void OnPlayerVictory(bool _asWon)
@@ -51,6 +55,8 @@ public class VictoryController : MonoBehaviour
             _pauseController.PauseGame(true, _asWon);
             _victoryTitleText.text = "Failure";
         }
+        _victoryTimerTxtGO.SetActive(false);
+        _scoreTxtGO.SetActive(false);
         _scoreUI._victory = true;
         _victoryScoreText.text = _scoreUI.GetScore();
         _victoryFinalScoreText.text = _scoreUI.GetFinalScore();
