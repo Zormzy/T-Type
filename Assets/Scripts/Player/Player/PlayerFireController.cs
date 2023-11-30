@@ -5,6 +5,8 @@ public class PlayerFireController : MonoBehaviour
 {
     [Header("Components")]
     [SerializeField] private GameObject _playerProjectilePrefab;
+    [SerializeField] private AudioClip _playerFireSFX;
+    private AudioSource _audioSource;
     private Transform _playerTransform;
 
     [Header("FireRate")]
@@ -16,7 +18,6 @@ public class PlayerFireController : MonoBehaviour
     private GameObject _playerProjectileToLaunch;
     private Transform _playerProjectilesTransformParent;
     private string _playerProjectileName;
-    private bool _asPlayerFired;
     public int _playerProjectileCount;
 
     private void Awake()
@@ -35,7 +36,6 @@ public class PlayerFireController : MonoBehaviour
         {
             PlayerFireGeneration();
             _fireTimerCounter = 0f;
-            _asPlayerFired = false;
         }
         else
             _fireTimerCounter += Time.deltaTime;
@@ -43,17 +43,17 @@ public class PlayerFireController : MonoBehaviour
 
     private void PlayerFireGeneration()
     {
+        _audioSource.PlayOneShot(_playerFireSFX, 1f);
         _playerProjectileToLaunch = _playerProjectileStack.Pop();
-        _playerProjectileToLaunch.SetActive(true);
         _playerProjectileToLaunch.transform.position = _playerTransform.position;
+        _playerProjectileToLaunch.transform.position.Set(_playerProjectileToLaunch.transform.position.x, _playerProjectileToLaunch.transform.position.y + 0.5f, _playerProjectileToLaunch.transform.position.z);
+        _playerProjectileToLaunch.SetActive(true);
 
         if (_playerProjectileToLaunch.GetComponent<PlayerProjectileController>() != null)
             _playerProjectileToLaunch.GetComponent<PlayerProjectileController>().OnFireAction();
-
-        _asPlayerFired = true;
     }
 
-    private void PlayerProjectilesListInitialization()
+    private void PlayerProjectilesStackInitialization()
     {
         for (int i = 0; i < _playerProjectileCount; i++)
         {
@@ -68,14 +68,14 @@ public class PlayerFireController : MonoBehaviour
 
     private void PlayerFireControllerInitialization()
     {
+        _audioSource = GameObject.Find("AudioSource").GetComponent<AudioSource>();
         _playerProjectilesTransformParent = GameObject.Find("PlayerProjectiles").transform;
         _playerTransform = transform;
         _playerProjectileName = "Player projectile n°";
         _playerProjectileCount = 20;
         _playerProjectileStack = new Stack<GameObject>();
         _playerProjectileToLaunch = null;
-        PlayerProjectilesListInitialization();
-        _asPlayerFired = false;
+        PlayerProjectilesStackInitialization();
         _fireTimer = 0.2f;
         _fireTimerCounter = 0f;
     }
