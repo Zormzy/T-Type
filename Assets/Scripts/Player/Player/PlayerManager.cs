@@ -9,6 +9,7 @@ public class PlayerManager : MonoBehaviour
     private ScoreUI _scoreUI;
     private PlayerController _playerController;
     private VictoryController _victoryController;
+    private PlayerLifeController _playerLifeController;
 
     [Header("Variables")]
     private string _enemyN1CollisionTag;
@@ -24,6 +25,7 @@ public class PlayerManager : MonoBehaviour
     private void PlayerManagerInitialization()
     {
         _playerAudioSource = GameObject.Find("AudioSource").GetComponent<AudioSource>();
+        _playerLifeController = GameObject.Find("UIManager").GetComponent<PlayerLifeController>();
         _playerController = GetComponent<PlayerController>();
         _scoreUI = GameObject.Find("UIManager").GetComponent<ScoreUI>();
         _victoryController = GameObject.Find("UIManager").GetComponent<VictoryController>();
@@ -33,13 +35,6 @@ public class PlayerManager : MonoBehaviour
         _scoreUI._playerIsAlive = true;
     }
 
-    private void OnPlayerDeath()
-    {
-        _playerController.EnemyCollision();
-        _scoreUI._playerIsAlive = false;
-        _victoryController.OnPlayerVictory(false);
-    }
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         _collisionTag = collision.gameObject.tag;
@@ -47,7 +42,7 @@ public class PlayerManager : MonoBehaviour
         if (_collisionTag == _enemyN1CollisionTag || _collisionTag == _enemyN2CollisionTag || _collisionTag == _enemyProjectileCollisionTag)
         {
             _playerAudioSource.PlayOneShot(_playerDeathSFX, 1f);
-            Invoke(nameof(OnPlayerDeath), _playerDeathSFX.length / 2);
+            _playerLifeController.PlayerLoseLife();
         }
     }
 }

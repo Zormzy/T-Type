@@ -15,6 +15,7 @@ public class VictoryController : MonoBehaviour
     [SerializeField] private GameObject _victoryMainMenuBtn;
     [SerializeField] private GameObject _victoryTimerTxtGO;
     [SerializeField] private GameObject _scoreTxtGO;
+    [SerializeField] private GameObject _playerLifeTxtGO;
     [SerializeField] private ScoreUI _scoreUI;
 
     [Header("Varibales")]
@@ -57,6 +58,7 @@ public class VictoryController : MonoBehaviour
         }
         _victoryTimerTxtGO.SetActive(false);
         _scoreTxtGO.SetActive(false);
+        _playerLifeTxtGO.SetActive(false);
         _scoreUI._victory = true;
         _victoryScoreText.text = _scoreUI.GetScore();
         _victoryFinalScoreText.text = _scoreUI.GetFinalScore();
