@@ -11,7 +11,8 @@ public class MainMenuController : MonoBehaviour
     [SerializeField] private GameObject _creditsBtn;
     [SerializeField] private GameObject _leaderBoardBtn;
     [SerializeField] private GameObject _quitBtn;
-    [SerializeField] private GameObject _returnBtn;
+    [SerializeField] private GameObject _creditsReturnBtn;
+    [SerializeField] private GameObject _leaderBoardReturnBtn;
 
     [Header("Credits")]
     [SerializeField] private GameObject _creditsCanvas;
@@ -38,7 +39,7 @@ public class MainMenuController : MonoBehaviour
         _leaderBoardBtn.SetActive(false);
         _quitBtn.SetActive(false);
         _creditsCanvas.SetActive(true);
-        EventSystem.current.SetSelectedGameObject(_returnBtn);
+        EventSystem.current.SetSelectedGameObject(_creditsReturnBtn);
     }
 
     public void OnLeaderBoardButton()
@@ -49,7 +50,7 @@ public class MainMenuController : MonoBehaviour
         _quitBtn.SetActive(false);
         _leaderBoardCanvas.SetActive(true);
         PrepareLeaderBoard();
-        EventSystem.current.SetSelectedGameObject(_returnBtn);
+        EventSystem.current.SetSelectedGameObject(_leaderBoardReturnBtn);
     }
 
     public void OnReturnBtn()

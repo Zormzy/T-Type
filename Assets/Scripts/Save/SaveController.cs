@@ -84,8 +84,11 @@ public class SaveController : MonoBehaviour
                 x++;
             }
         }
-        _playersScores.RemoveRange(9, 1);
-        _playersPseudo.RemoveRange(9, 1);
+        if (_playersScores.Count > 10)
+        {
+            _playersScores.RemoveRange(9, 1);
+            _playersPseudo.RemoveRange(9, 1);
+        }
         SaveGame();
     }
 
