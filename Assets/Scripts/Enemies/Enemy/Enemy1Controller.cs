@@ -112,7 +112,7 @@ public class Enemy1Controller : MonoBehaviour
         _enemyProjectilesStack = GameObject.Find("EnemiesProjectiles").GetComponent<EnemiesProjectilesStack>();
         _enemyStacks = GameObject.Find("Enemies").GetComponent<EnemiesStacks>();
         _enemyProjectileToLaunch = null;
-        _enemyProjectileSpawnTimer = 2f;
+        _enemyProjectileSpawnTimer = 1.5f;
         _enemyProjectileSpawnTimerCounter = 0f;
     }
 }

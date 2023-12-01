@@ -133,10 +133,10 @@ public class Enemy2Controller : MonoBehaviour
         _enemyStacks = GameObject.Find("Enemies").GetComponent<EnemiesStacks>();
         _enemyProjectileToLaunch = null;
         _isFiring = false;
-        _pattern1WaveMaxCount = 2;
+        _pattern1WaveMaxCount = 3;
         _pattern1WaveCount = _pattern1WaveMaxCount;
         _enemyProjectilesRotationListIndex = _enemyProjectileDirectionQuaternionList.Count;
-        _enemyProjectileSpawnTimer = 3f;
+        _enemyProjectileSpawnTimer = 1.5f;
         _enemyProjectileSpawnTimerCounter = 0f;
     }
 }

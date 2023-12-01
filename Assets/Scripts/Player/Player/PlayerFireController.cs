@@ -76,7 +76,7 @@ public class PlayerFireController : MonoBehaviour
         _playerProjectileStack = new Stack<GameObject>();
         _playerProjectileToLaunch = null;
         PlayerProjectilesStackInitialization();
-        _fireTimer = 0.2f;
+        _fireTimer = 0.1f;
         _fireTimerCounter = 0f;
     }
 }

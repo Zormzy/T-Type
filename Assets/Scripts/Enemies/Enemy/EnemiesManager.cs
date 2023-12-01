@@ -125,7 +125,7 @@ public class EnemiesManager : MonoBehaviour
         _enemyIsHit = false;
         _movementTimer = 0f;
         _movementSpeed = 0.2f;
-        _maxHitPoints = 10;
+        _maxHitPoints = 15;
         _hitPoints = _maxHitPoints;
         _enemyMovementPosition = Vector2.down;
         _oldPosition = Vector2.zero;
