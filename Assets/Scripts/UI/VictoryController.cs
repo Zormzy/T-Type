@@ -13,9 +13,13 @@ public class VictoryController : MonoBehaviour
     [SerializeField] private PauseController _pauseController;
     [SerializeField] private EnemiesGeneration _enemiesGeneration;
     [SerializeField] private GameObject _victoryMainMenuBtn;
+    [SerializeField] private GameObject _victoryRetryBtn;
+    [SerializeField] private GameObject _victoryInputFieldPseudo;
     [SerializeField] private GameObject _victoryTimerTxtGO;
     [SerializeField] private GameObject _scoreTxtGO;
     [SerializeField] private GameObject _playerLifeTxtGO;
+    [SerializeField] private GameObject _virtualKeyboardGO;
+    [SerializeField] private GameObject _virtualKeyboardQLetterGO;
     [SerializeField] private ScoreUI _scoreUI;
 
     [Header("Varibales")]
@@ -25,6 +29,7 @@ public class VictoryController : MonoBehaviour
     private float _victoryTimerRemaining;
     private float _victoryTimerMinutesRemaining;
     private float _victoryTimerSecondesRemaining;
+    public bool _isGamepadControl;
 
     private void Awake()
     {
@@ -40,7 +45,15 @@ public class VictoryController : MonoBehaviour
             VictoryTimerDisplay();
             _victoryTimerCounter += Time.deltaTime;
         }
+    }
 
+    public void OnPlayerPseudoEntered()
+    {
+        _victoryInputFieldPseudo.SetActive(false);
+        _virtualKeyboardGO.SetActive(false);
+        _victoryMainMenuBtn.SetActive(true);
+        _victoryRetryBtn.SetActive(true);
+        EventSystem.current.SetSelectedGameObject(_victoryMainMenuBtn);
     }
 
     public void OnPlayerVictory(bool _asWon)
@@ -56,6 +69,13 @@ public class VictoryController : MonoBehaviour
             _pauseController.PauseGame(true, _asWon);
             _victoryTitleText.text = "Failure";
         }
+
+        if (_isGamepadControl)
+        {
+            _virtualKeyboardGO.SetActive(true);
+            EventSystem.current.SetSelectedGameObject(_virtualKeyboardQLetterGO);
+        }
+
         _victoryTimerTxtGO.SetActive(false);
         _scoreTxtGO.SetActive(false);
         _playerLifeTxtGO.SetActive(false);
@@ -63,7 +83,6 @@ public class VictoryController : MonoBehaviour
         _victoryScoreText.text = _scoreUI.GetScore();
         _victoryFinalScoreText.text = _scoreUI.GetFinalScore();
         _victoryCanvas.SetActive(true);
-        EventSystem.current.SetSelectedGameObject(_victoryMainMenuBtn);
         _victoryControlStatus = true;
     }
 
@@ -83,5 +102,6 @@ public class VictoryController : MonoBehaviour
         _victoryTimerMinutesRemaining = Mathf.FloorToInt(_victoryTimerRemaining / 60);
         _victoryTimerSecondesRemaining = Mathf.FloorToInt(_victoryTimerRemaining % 60);
         _victoryControlStatus = false;
+        _isGamepadControl = false;
     }
 }

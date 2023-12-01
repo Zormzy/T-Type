@@ -7,6 +7,7 @@ public class PlayerInputsController : MonoBehaviour
     [SerializeField] private Rigidbody2D _playerRigidBody;
     [SerializeField] private Animator _playerAnimator;
     private PauseController _pausedController;
+    private VictoryController _victoryController;
     private Camera _camera;
 
     [Header("Movement")]
@@ -33,9 +34,15 @@ public class PlayerInputsController : MonoBehaviour
     public void OnPlayerMovement(InputAction.CallbackContext context)
     {
         if (context.control.device is Gamepad)
+        {
             Cursor.visible = false;
+            _victoryController._isGamepadControl = true;
+        }
         else
+        {
             Cursor.visible = true;
+            _victoryController._isGamepadControl = false;
+        }
 
         if (context.performed)
         {
@@ -53,9 +60,15 @@ public class PlayerInputsController : MonoBehaviour
     public void OnPlayerPause(InputAction.CallbackContext context)
     {
         if (context.control.device is Gamepad)
+        {
             Cursor.visible = false;
+            _victoryController._isGamepadControl = true;
+        }
         else
+        {
             Cursor.visible = true;
+            _victoryController._isGamepadControl = false;
+        }
 
         if (context.performed)
             _pausedController.PauseGame(false, false);
@@ -65,6 +78,7 @@ public class PlayerInputsController : MonoBehaviour
     {
         _camera = Camera.main;
         _pausedController = GameObject.Find("UIManager").GetComponent<PauseController>();
+        _victoryController = GameObject.Find("UIManager").GetComponent<VictoryController>();
         _screenBounds = _camera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, _camera.transform.position.z));
         _playerWidth = transform.GetComponent<SpriteRenderer>().sprite.bounds.min.x / 15;
         _playerHeight = transform.GetComponent<SpriteRenderer>().sprite.bounds.min.y / 15;

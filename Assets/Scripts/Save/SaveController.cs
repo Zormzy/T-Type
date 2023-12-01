@@ -1,18 +1,31 @@
 using System.Collections.Generic;
 using System.IO;
+using TMPro;
 using UnityEngine;
 
 public class SaveController : MonoBehaviour
 {
-    SaveLeaderBoard save;
-    private List<string> _players;
+    [Header("Components")]
+    private SaveLeaderBoard save;
+    [SerializeField] private TextMeshProUGUI _pseudoText;
+    [SerializeField] private ScoreUI _scoreUI;
+
+    [Header("Save variables")]
+    private List<string> _playersPseudo;
     private List<int> _playersScores;
-    string saveContent;
-    string saveFile;
+    private string saveContent;
+    private string saveFile;
+
+    [Header("Variables")]
+    private string _playerPseudo;
+    private string _playerPseudoTemp;
+    private int _playerScore;
+    private int _playerScoreTemp;
 
     private void Awake()
     {
         saveFile = Application.persistentDataPath + "/T-TypeLeaderBoard.json";
+        SaveControllerInitialization();
     }
 
     private void Start()
@@ -23,25 +36,64 @@ public class SaveController : MonoBehaviour
             CreateSaveGame();
     }
 
-    public void AddPlayer(string _playerPseudo, int _playerScore)
+    public List<string> GetPlayersPseudoList()
     {
-        for (int i = 0; i < _playersScores.Count; i++)
+        ReadSaveGame();
+        return _playersPseudo;
+    }
+
+    public List<int> GetPlayersScoresList()
+    {
+        ReadSaveGame();
+        return _playersScores;
+    }
+
+    public void GetPseudoAndScore()
+    {
+        ReadSaveGame();
+        _playerPseudo = _pseudoText.text;
+        _playerScore = _scoreUI._finalScore;
+        AddPlayer(_playerPseudo, _playerScore);
+    }
+
+    private void AddPlayer(string _playerPseudo, int _playerScore)
+    {
+        _playersScores.Add(_playerScore);
+        _playersPseudo.Add(_playerPseudo);
+
+        if (_playersScores.Count >= 2)
         {
-            if (_playerScore >= _playersScores[i])
+            int x = 0;
+            while (x < _playersScores.Count - 1)
             {
-                _playersScores.RemoveAt(_playersScores.Count - 1);
-                _playersScores.Insert(i, _playerScore);
-                _players.RemoveAt(_players.Count - 1);
-                _players.Insert(i, _playerPseudo);
+                int y = 0;
+                while (y < _playersScores.Count - 1 - x)
+                {
+                    if (_playersScores[y + 1] > _playersScores[y])
+                    {
+                        _playerScoreTemp = _playersScores[y + 1];
+                        _playersScores[y + 1] = _playersScores[y];
+                        _playersScores[y] = _playerScoreTemp;
+
+                        _playerPseudoTemp = _playersPseudo[y + 1];
+                        _playersPseudo[y + 1] = _playersPseudo[y];
+                        _playersPseudo[y] = _playerPseudoTemp;
+                    }
+                    y++;
+                }
+                x++;
             }
         }
+        _playersScores.RemoveRange(9, 1);
+        _playersPseudo.RemoveRange(9, 1);
+        SaveGame();
     }
 
     private void CreateSaveGame()
     {
         save = new SaveLeaderBoard();
-        save.players = new List<string>(10);
-        save.playersScores = new List<int>(10);
+        save.playersPseudo = new List<string>();
+        save.playersScores = new List<int>();
         saveContent = JsonUtility.ToJson(save);
         File.WriteAllText(saveFile, saveContent);
     }
@@ -50,7 +102,22 @@ public class SaveController : MonoBehaviour
     {
         saveContent = File.ReadAllText(saveFile);
         save = JsonUtility.FromJson<SaveLeaderBoard>(saveContent);
-        _players = save.players;
+        _playersPseudo = save.playersPseudo;
         _playersScores = save.playersScores;
+    }
+
+    private void SaveGame()
+    {
+        save.playersScores = _playersScores;
+        save.playersPseudo = _playersPseudo;
+        saveContent = JsonUtility.ToJson(save);
+        JsonUtility.FromJsonOverwrite(saveContent, save);
+        File.WriteAllText(saveFile, saveContent);
+    }
+
+    private void SaveControllerInitialization()
+    {
+        _playersPseudo = new List<string>();
+        _playersScores = new List<int>();
     }
 }
