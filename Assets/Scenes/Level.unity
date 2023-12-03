@@ -4490,14 +4490,14 @@ MonoBehaviour:
   m_VerticalScrollbarEventHandler: {fileID: 0}
   m_LayoutGroup: {fileID: 0}
   m_ScrollSensitivity: 1
-  m_ContentType: 5
+  m_ContentType: 0
   m_InputType: 0
   m_AsteriskChar: 42
   m_KeyboardType: 0
   m_LineType: 0
   m_HideMobileInput: 0
   m_HideSoftKeyboard: 0
-  m_CharacterValidation: 5
+  m_CharacterValidation: 0
   m_RegexValue: 
   m_GlobalPointSize: 14
   m_CharacterLimit: 10
@@ -4615,6 +4615,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _pseudoText: {fileID: 1621629963}
+  _inputField: {fileID: 848732609}
   _scoreUI: {fileID: 1550161244}
 --- !u!1 &849472504
 GameObject:
@@ -9304,7 +9305,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u200B"
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ed615d59b5d10d846ab42063ec246e1b, type: 2}
   m_sharedMaterial: {fileID: 6334707036619282839, guid: ed615d59b5d10d846ab42063ec246e1b, type: 2}

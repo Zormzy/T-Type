@@ -2,12 +2,14 @@ using System.Collections.Generic;
 using System.IO;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SaveController : MonoBehaviour
 {
     [Header("Components")]
     private SaveLeaderBoard save;
     [SerializeField] private TextMeshProUGUI _pseudoText;
+    [SerializeField] private TMP_InputField _inputField;
     [SerializeField] private ScoreUI _scoreUI;
 
     [Header("Save variables")]
@@ -51,7 +53,11 @@ public class SaveController : MonoBehaviour
     public void GetPseudoAndScore()
     {
         ReadSaveGame();
-        _playerPseudo = _pseudoText.text;
+        if (_inputField.text == "" || _inputField.text == " " || _inputField.text == null)
+            _playerPseudo = "AAA";
+        else
+            _playerPseudo = _pseudoText.text;
+
         _playerScore = _scoreUI._finalScore;
         AddPlayer(_playerPseudo, _playerScore);
     }
