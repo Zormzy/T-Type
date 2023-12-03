@@ -81,6 +81,8 @@ public class Enemy2Controller : MonoBehaviour
     {
         _enemyRigidBody.velocity = Vector2.zero;
         gameObject.SetActive(false);
+        _isFiring = false;
+        _enemyProjectileSpawnTimerCounter = 0f;
         _enemyStacks._enemyNormal2Stack.Push(gameObject);
     }
 
@@ -136,7 +138,7 @@ public class Enemy2Controller : MonoBehaviour
         _pattern1WaveMaxCount = 3;
         _pattern1WaveCount = _pattern1WaveMaxCount;
         _enemyProjectilesRotationListIndex = _enemyProjectileDirectionQuaternionList.Count;
-        _enemyProjectileSpawnTimer = 1.5f;
+        _enemyProjectileSpawnTimer = 1f;
         _enemyProjectileSpawnTimerCounter = 0f;
     }
 }
